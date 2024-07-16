@@ -1,0 +1,57 @@
+,Tool,variable,value
+0,HIV-1 RT,sgRNA 1S,9.0
+1,HIV-1 RT,sgRNA 1S,1.0
+2,HIV-1 RT,sgRNA 1S,0.0
+3,Polλ Δ2,sgRNA 1S,12.0
+4,Polλ Δ2,sgRNA 1S,19.5
+5,Polλ Δ2,sgRNA 1S,28.0
+6,Polλ Δ2,sgRNA 1S,11.5
+7,Polλ Δ2 R438W,sgRNA 1S,33.0
+8,Polλ Δ2 R438W,sgRNA 1S,21.0
+9,Polλ Δ2 R438W,sgRNA 1S,16.0
+10,Polλ Δ2 R438W,sgRNA 1S,21.0
+11,Polλ Δ2 R438W + MLH1dn,sgRNA 1S,44.0
+12,Polλ Δ2 R438W + MLH1dn,sgRNA 1S,26.0
+13,Polλ Δ2 R438W + MLH1dn,sgRNA 1S,45.5
+14,HIV-1 RT,sgRNA 1Sb,0.0
+15,HIV-1 RT,sgRNA 1Sb,0.0
+16,HIV-1 RT,sgRNA 1Sb,0.0
+17,Polλ Δ2,sgRNA 1Sb,53.5
+18,Polλ Δ2,sgRNA 1Sb,
+19,Polλ Δ2,sgRNA 1Sb,46.5
+20,Polλ Δ2,sgRNA 1Sb,
+21,Polλ Δ2 R438W,sgRNA 1Sb,
+22,Polλ Δ2 R438W,sgRNA 1Sb,105.0
+23,Polλ Δ2 R438W,sgRNA 1Sb,74.0
+24,Polλ Δ2 R438W,sgRNA 1Sb,117.0
+25,Polλ Δ2 R438W + MLH1dn,sgRNA 1Sb,125.5
+26,Polλ Δ2 R438W + MLH1dn,sgRNA 1Sb,123.0
+27,Polλ Δ2 R438W + MLH1dn,sgRNA 1Sb,119.0
+28,HIV-1 RT,sgRNA 2S,0.0
+29,HIV-1 RT,sgRNA 2S,1.0
+30,HIV-1 RT,sgRNA 2S,0.0
+31,Polλ Δ2,sgRNA 2S,20.0
+32,Polλ Δ2,sgRNA 2S,7.0
+33,Polλ Δ2,sgRNA 2S,14.0
+34,Polλ Δ2,sgRNA 2S,
+35,Polλ Δ2 R438W,sgRNA 2S,21.0
+36,Polλ Δ2 R438W,sgRNA 2S,15.0
+37,Polλ Δ2 R438W,sgRNA 2S,15.0
+38,Polλ Δ2 R438W,sgRNA 2S,
+39,Polλ Δ2 R438W + MLH1dn,sgRNA 2S,36.0
+40,Polλ Δ2 R438W + MLH1dn,sgRNA 2S,19.0
+41,Polλ Δ2 R438W + MLH1dn,sgRNA 2S,19.0
+42,HIV-1 RT,sgRNA 2Sb,0.0
+43,HIV-1 RT,sgRNA 2Sb,0.0
+44,HIV-1 RT,sgRNA 2Sb,0.0
+45,Polλ Δ2,sgRNA 2Sb,
+46,Polλ Δ2,sgRNA 2Sb,58.7
+47,Polλ Δ2,sgRNA 2Sb,44.5
+48,Polλ Δ2,sgRNA 2Sb,60.5
+49,Polλ Δ2 R438W,sgRNA 2Sb,77.5
+50,Polλ Δ2 R438W,sgRNA 2Sb,86.0
+51,Polλ Δ2 R438W,sgRNA 2Sb,74.0
+52,Polλ Δ2 R438W,sgRNA 2Sb,87.0
+53,Polλ Δ2 R438W + MLH1dn,sgRNA 2Sb,107.0
+54,Polλ Δ2 R438W + MLH1dn,sgRNA 2Sb,117.0
+55,Polλ Δ2 R438W + MLH1dn,sgRNA 2Sb,
