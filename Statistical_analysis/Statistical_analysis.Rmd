@@ -20,8 +20,8 @@ fig1f <- tibble(read.csv('fig_1f_melted.csv'))
 
 fig2b <- tibble(read.csv('Fig_2b_melted.csv'))
 
-fig2e <- tibble(read.csv('GFP_pileup_AF_melted.tsv', sep='\t'))
-figS3b <- tibble(read.csv('GFP_pileup_raw_AF_melted.tsv', sep='\t'))
+fig2e <- tibble(read.csv('EGFP_pileup_AF_melted.tsv', sep='\t'))
+figS3b <- tibble(read.csv('EGFP_pileup_raw_AF_melted.tsv', sep='\t'))
 
 fig4d <- tibble(read.csv('SPIKE_pileup_AF_melted.tsv', sep='\t'))
 figS6b <- tibble(read.csv('SPIKE_pileup_raw_AF_melted.tsv', sep='\t'))
@@ -30,16 +30,16 @@ figS6b <- tibble(read.csv('SPIKE_pileup_raw_AF_melted.tsv', sep='\t'))
 ## Fig. 1c
 
 ```{r}
-fig1c_1S_aov <- aov(value ~ Tool, data=fig1c %>% filter(variable=='sgRNA 1S'))
-summary(fig1c_1S_aov)
+fig1c_a1_aov <- aov(value ~ Tool, data=fig1c %>% filter(variable=='sgRNA_a1'))
+summary(fig1c_a1_aov)
 ```
 
 ```{r}
-TukeyHSD(fig1c_1S_aov)
+TukeyHSD(fig1c_a1_aov)
 ```
 
 ```{r}
-fig1c_2S_aov <- aov(value ~ Tool, data=fig1c %>% filter(variable=='sgRNA 2S'))
+fig1c_2S_aov <- aov(value ~ Tool, data=fig1c %>% filter(variable=='sgRNA_b1'))
 summary(fig1c_2S_aov)
 ```
 
@@ -50,49 +50,49 @@ TukeyHSD(fig1c_2S_aov)
 ## Fig. 1e
 
 ```{r}
-fig1e <- fig1e %>% mutate(guide=sapply(variable, function(x) gsub('b', '', x)))
+fig1e <- fig1e %>% mutate(guide=sapply(variable, function(x) gsub('\\+.2', '', x)))
 ```
 
 ```{r}
-fig1e_1S_aov <- aov(value ~ Tool * variable, data=fig1e %>% filter(guide=='sgRNA 1S'))
-summary(fig1e_1S_aov)
+fig1e_a1_aov <- aov(value ~ Tool * variable, data=fig1e %>% filter(guide=='sgRNA_a1'))
+summary(fig1e_a1_aov)
 ```
 
 ```{r}
-TukeyHSD(fig1e_1S_aov, 'Tool:variable')
+TukeyHSD(fig1e_a1_aov, 'Tool:variable')
 ```
 
 ```{r}
-fig1e_2S_aov <- aov(value ~ Tool * variable, data=fig1e %>% filter(guide=='sgRNA 2S'))
-summary(fig1e_2S_aov)
+fig1e_b1_aov <- aov(value ~ Tool * variable, data=fig1e %>% filter(guide=='sgRNA_b1'))
+summary(fig1e_b1_aov)
 ```
 
 ```{r}
-TukeyHSD(fig1e_2S_aov, 'Tool:variable')
+TukeyHSD(fig1e_b1_aov, 'Tool:variable')
 ```
 
 ## Fig. 1f
 
 ```{r}
-fig1f <- fig1f %>% mutate(guide=sapply(variable, function(x) gsub('b', '', x)))
+fig1f <- fig1f %>% mutate(guide=sapply(variable, function(x) gsub('\\+.2', '', x)))
 ```
 
 ```{r}
-fig1f_1S_aov <- aov(value ~ Tool * variable, data=fig1f %>% filter(guide=='sgRNA 1S'))
-summary(fig1f_1S_aov)
+fig1f_a1_aov <- aov(value ~ Tool * variable, data=fig1f %>% filter(guide=='sgRNA_a1'))
+summary(fig1f_a1_aov)
 ```
 
 ```{r}
-TukeyHSD(fig1f_1S_aov, 'Tool:variable')
+TukeyHSD(fig1f_a1_aov, 'Tool:variable')
 ```
 
 ```{r}
-fig1f_2S_aov <- aov(value ~ Tool * variable, data=fig1f %>% filter(guide=='sgRNA 2S'))
-summary(fig1f_2S_aov)
+fig1f_b1_aov <- aov(value ~ Tool * variable, data=fig1f %>% filter(guide=='sgRNA_b1'))
+summary(fig1f_b1_aov)
 ```
 
 ```{r}
-TukeyHSD(fig1f_2S_aov, 'Tool:variable')
+TukeyHSD(fig1f_b1_aov, 'Tool:variable')
 ```
 
 ## Figure 2c
@@ -109,14 +109,14 @@ TukeyHSD(fig2b_aov, 'Target:guide')
 ## Figure 2f
 
 ```{r}
-fig2e_1 <- fig2e %>% filter(Guide == '1')
+fig2e_1 <- fig2e %>% filter(Guide == 'a1')
 t_res <- t.test(AF ~ Sample, data=fig2e_1)
 p_1 <- t_res$p.value
 t_res
 ```
 
 ```{r}
-fig2e_1B <- fig2e %>% filter(Guide == '1+B')
+fig2e_1B <- fig2e %>% filter(Guide == 'a1+a2')
 t_res <- t.test(AF ~ Sample, data=fig2e_1B)
 p_1B <- t_res$p.value
 t_res
@@ -130,14 +130,14 @@ p.adjust(c(p_1, p_1B), method='bonferroni')
 ## Supplementary Figure 3b
 
 ```{r}
-figS3b_1 <- figS3b %>% filter(Guide == '1')
+figS3b_1 <- figS3b %>% filter(Guide == 'a1')
 t_res <- t.test(AF ~ Sample, data=figS3b_1)
 p_1 <- t_res$p.value
 t_res
 ```
 
 ```{r}
-figS3b_1B <- figS3b  %>% filter(Guide == '1+B')
+figS3b_1B <- figS3b  %>% filter(Guide == 'a1+a2')
 t_res <- t.test(AF ~ Sample, data=figS3b_1B)
 p_1B <- t_res$p.value
 t_res

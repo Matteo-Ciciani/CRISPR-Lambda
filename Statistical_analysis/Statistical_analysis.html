@@ -368,32 +368,32 @@ fig1f &lt;- tibble(read.csv(&#39;fig_1f_melted.csv&#39;))
 
 fig2b &lt;- tibble(read.csv(&#39;Fig_2b_melted.csv&#39;))
 
-fig2e &lt;- tibble(read.csv(&#39;GFP_pileup_AF_melted.tsv&#39;, sep=&#39;\t&#39;))
-figS3b &lt;- tibble(read.csv(&#39;GFP_pileup_raw_AF_melted.tsv&#39;, sep=&#39;\t&#39;))
+fig2e &lt;- tibble(read.csv(&#39;EGFP_pileup_AF_melted.tsv&#39;, sep=&#39;\t&#39;))
+figS3b &lt;- tibble(read.csv(&#39;EGFP_pileup_raw_AF_melted.tsv&#39;, sep=&#39;\t&#39;))
 
 fig4d &lt;- tibble(read.csv(&#39;SPIKE_pileup_AF_melted.tsv&#39;, sep=&#39;\t&#39;))
 figS6b &lt;- tibble(read.csv(&#39;SPIKE_pileup_raw_AF_melted.tsv&#39;, sep=&#39;\t&#39;))</code></pre>
 <div id="fig.-1c" class="section level2">
 <h2>Fig. 1c</h2>
-<pre class="r"><code>fig1c_1S_aov &lt;- aov(value ~ Tool, data=fig1c %&gt;% filter(variable==&#39;sgRNA 1S&#39;))
-summary(fig1c_1S_aov)</code></pre>
+<pre class="r"><code>fig1c_a1_aov &lt;- aov(value ~ Tool, data=fig1c %&gt;% filter(variable==&#39;sgRNA_a1&#39;))
+summary(fig1c_a1_aov)</code></pre>
 <pre><code>##             Df Sum Sq Mean Sq F value  Pr(&gt;F)   
 ## Tool         2  637.5   318.7   9.747 0.00948 **
 ## Residuals    7  228.9    32.7                   
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
-<pre class="r"><code>TukeyHSD(fig1c_1S_aov)</code></pre>
+<pre class="r"><code>TukeyHSD(fig1c_a1_aov)</code></pre>
 <pre><code>##   Tukey multiple comparisons of means
 ##     95% family-wise confidence level
 ## 
-## Fit: aov(formula = value ~ Tool, data = fig1c %&gt;% filter(variable == &quot;sgRNA 1S&quot;))
+## Fit: aov(formula = value ~ Tool, data = fig1c %&gt;% filter(variable == &quot;sgRNA_a1&quot;))
 ## 
 ## $Tool
-##                                diff        lwr      upr     p adj
-## Optimized PolI3M-HIV-1 RT -3.333333 -17.084450 10.41778 0.7634227
-## Polλ Δ2-HIV-1 RT          14.416667   1.553675 27.27966 0.0309641
-## Polλ Δ2-Optimized PolI3M  17.750000   4.887008 30.61299 0.0116112</code></pre>
-<pre class="r"><code>fig1c_2S_aov &lt;- aov(value ~ Tool, data=fig1c %&gt;% filter(variable==&#39;sgRNA 2S&#39;))
+##                                     diff        lwr      upr     p adj
+## CRISPR-Pol-RT-CRISPR-Pol-Ecoli  3.333333 -10.417783 17.08445 0.7634227
+## CRISPR-λ-CRISPR-Pol-Ecoli      17.750000   4.887008 30.61299 0.0116112
+## CRISPR-λ-CRISPR-Pol-RT         14.416667   1.553675 27.27966 0.0309641</code></pre>
+<pre class="r"><code>fig1c_2S_aov &lt;- aov(value ~ Tool, data=fig1c %&gt;% filter(variable==&#39;sgRNA_b1&#39;))
 summary(fig1c_2S_aov)</code></pre>
 <pre><code>##             Df Sum Sq Mean Sq F value  Pr(&gt;F)   
 ## Tool         2  364.7  182.33   12.82 0.00682 **
@@ -405,19 +405,19 @@ summary(fig1c_2S_aov)</code></pre>
 <pre><code>##   Tukey multiple comparisons of means
 ##     95% family-wise confidence level
 ## 
-## Fit: aov(formula = value ~ Tool, data = fig1c %&gt;% filter(variable == &quot;sgRNA 2S&quot;))
+## Fit: aov(formula = value ~ Tool, data = fig1c %&gt;% filter(variable == &quot;sgRNA_b1&quot;))
 ## 
 ## $Tool
-##                                 diff       lwr       upr     p adj
-## Optimized PolI3M-HIV-1 RT -0.3333333 -9.781168  9.114502 0.9935671
-## Polλ Δ2-HIV-1 RT          13.3333333  3.885498 22.781168 0.0116748
-## Polλ Δ2-Optimized PolI3M  13.6666667  4.218832 23.114502 0.0104074</code></pre>
+##                                      diff       lwr       upr     p adj
+## CRISPR-Pol-RT-CRISPR-Pol-Ecoli  0.3333333 -9.114502  9.781168 0.9935671
+## CRISPR-λ-CRISPR-Pol-Ecoli      13.6666667  4.218832 23.114502 0.0104074
+## CRISPR-λ-CRISPR-Pol-RT         13.3333333  3.885498 22.781168 0.0116748</code></pre>
 </div>
 <div id="fig.-1e" class="section level2">
 <h2>Fig. 1e</h2>
-<pre class="r"><code>fig1e &lt;- fig1e %&gt;% mutate(guide=sapply(variable, function(x) gsub(&#39;b&#39;, &#39;&#39;, x)))</code></pre>
-<pre class="r"><code>fig1e_1S_aov &lt;- aov(value ~ Tool * variable, data=fig1e %&gt;% filter(guide==&#39;sgRNA 1S&#39;))
-summary(fig1e_1S_aov)</code></pre>
+<pre class="r"><code>fig1e &lt;- fig1e %&gt;% mutate(guide=sapply(variable, function(x) gsub(&#39;\\+.2&#39;, &#39;&#39;, x)))</code></pre>
+<pre class="r"><code>fig1e_a1_aov &lt;- aov(value ~ Tool * variable, data=fig1e %&gt;% filter(guide==&#39;sgRNA_a1&#39;))
+summary(fig1e_a1_aov)</code></pre>
 <pre><code>##               Df Sum Sq Mean Sq F value   Pr(&gt;F)    
 ## Tool           1 2160.1  2160.1   68.19 3.47e-05 ***
 ## variable       1  509.6   509.6   16.09 0.003889 ** 
@@ -426,22 +426,29 @@ summary(fig1e_1S_aov)</code></pre>
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 2 observations deleted due to missingness</code></pre>
-<pre class="r"><code>TukeyHSD(fig1e_1S_aov, &#39;Tool:variable&#39;)</code></pre>
+<pre class="r"><code>TukeyHSD(fig1e_a1_aov, &#39;Tool:variable&#39;)</code></pre>
 <pre><code>##   Tukey multiple comparisons of means
 ##     95% family-wise confidence level
 ## 
-## Fit: aov(formula = value ~ Tool * variable, data = fig1e %&gt;% filter(guide == &quot;sgRNA 1S&quot;))
+## Fit: aov(formula = value ~ Tool * variable, data = fig1e %&gt;% filter(guide == &quot;sgRNA_a1&quot;))
 ## 
 ## $`Tool:variable`
-##                                            diff         lwr       upr     p adj
-## Polλ Δ2:sgRNA 1S-HIV-1 RT:sgRNA 1S    14.416667   0.6509109 28.182422 0.0404289
-## HIV-1 RT:sgRNA 1Sb-HIV-1 RT:sgRNA 1S  -3.333333 -18.0495452 11.382879 0.8843185
-## Polλ Δ2:sgRNA 1Sb-HIV-1 RT:sgRNA 1S   46.666667  30.2134416 63.119892 0.0000804
-## HIV-1 RT:sgRNA 1Sb-Polλ Δ2:sgRNA 1S  -17.750000 -31.5157557 -3.984244 0.0140174
-## Polλ Δ2:sgRNA 1Sb-Polλ Δ2:sgRNA 1S    32.250000  16.6411002 47.858900 0.0007561
-## Polλ Δ2:sgRNA 1Sb-HIV-1 RT:sgRNA 1Sb  50.000000  33.5467749 66.453225 0.0000484</code></pre>
-<pre class="r"><code>fig1e_2S_aov &lt;- aov(value ~ Tool * variable, data=fig1e %&gt;% filter(guide==&#39;sgRNA 2S&#39;))
-summary(fig1e_2S_aov)</code></pre>
+##                                                        diff         lwr
+## CRISPR-λ:sgRNA_a1-CRISPR-Pol-RT:sgRNA_a1          14.416667   0.6509109
+## CRISPR-Pol-RT:sgRNA_a1+a2-CRISPR-Pol-RT:sgRNA_a1  -3.333333 -18.0495452
+## CRISPR-λ:sgRNA_a1+a2-CRISPR-Pol-RT:sgRNA_a1       46.666667  30.2134416
+## CRISPR-Pol-RT:sgRNA_a1+a2-CRISPR-λ:sgRNA_a1      -17.750000 -31.5157557
+## CRISPR-λ:sgRNA_a1+a2-CRISPR-λ:sgRNA_a1            32.250000  16.6411002
+## CRISPR-λ:sgRNA_a1+a2-CRISPR-Pol-RT:sgRNA_a1+a2    50.000000  33.5467749
+##                                                        upr     p adj
+## CRISPR-λ:sgRNA_a1-CRISPR-Pol-RT:sgRNA_a1         28.182422 0.0404289
+## CRISPR-Pol-RT:sgRNA_a1+a2-CRISPR-Pol-RT:sgRNA_a1 11.382879 0.8843185
+## CRISPR-λ:sgRNA_a1+a2-CRISPR-Pol-RT:sgRNA_a1      63.119892 0.0000804
+## CRISPR-Pol-RT:sgRNA_a1+a2-CRISPR-λ:sgRNA_a1      -3.984244 0.0140174
+## CRISPR-λ:sgRNA_a1+a2-CRISPR-λ:sgRNA_a1           47.858900 0.0007561
+## CRISPR-λ:sgRNA_a1+a2-CRISPR-Pol-RT:sgRNA_a1+a2   66.453225 0.0000484</code></pre>
+<pre class="r"><code>fig1e_b1_aov &lt;- aov(value ~ Tool * variable, data=fig1e %&gt;% filter(guide==&#39;sgRNA_b1&#39;))
+summary(fig1e_b1_aov)</code></pre>
 <pre><code>##               Df Sum Sq Mean Sq F value   Pr(&gt;F)    
 ## Tool           1   3458    3458  115.76  4.9e-06 ***
 ## variable       1   1234    1234   41.32 0.000203 ***
@@ -450,33 +457,33 @@ summary(fig1e_2S_aov)</code></pre>
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 2 observations deleted due to missingness</code></pre>
-<pre class="r"><code>TukeyHSD(fig1e_2S_aov, &#39;Tool:variable&#39;)</code></pre>
+<pre class="r"><code>TukeyHSD(fig1e_b1_aov, &#39;Tool:variable&#39;)</code></pre>
 <pre><code>##   Tukey multiple comparisons of means
 ##     95% family-wise confidence level
 ## 
-## Fit: aov(formula = value ~ Tool * variable, data = fig1e %&gt;% filter(guide == &quot;sgRNA 2S&quot;))
+## Fit: aov(formula = value ~ Tool * variable, data = fig1e %&gt;% filter(guide == &quot;sgRNA_b1&quot;))
 ## 
 ## $`Tool:variable`
-##                                             diff         lwr        upr
-## Polλ Δ2:sgRNA 2S-HIV-1 RT:sgRNA 2S    13.3333333  -0.9569569 27.6236236
-## HIV-1 RT:sgRNA 2Sb-HIV-1 RT:sgRNA 2S  -0.3333333 -14.6236236 13.9569569
-## Polλ Δ2:sgRNA 2Sb-HIV-1 RT:sgRNA 2S   54.2333333  39.9430431 68.5236236
-## HIV-1 RT:sgRNA 2Sb-Polλ Δ2:sgRNA 2S  -13.6666667 -27.9569569  0.6236236
-## Polλ Δ2:sgRNA 2Sb-Polλ Δ2:sgRNA 2S    40.9000000  26.6097097 55.1902903
-## Polλ Δ2:sgRNA 2Sb-HIV-1 RT:sgRNA 2Sb  54.5666667  40.2763764 68.8569569
-##                                          p adj
-## Polλ Δ2:sgRNA 2S-HIV-1 RT:sgRNA 2S   0.0676604
-## HIV-1 RT:sgRNA 2Sb-HIV-1 RT:sgRNA 2S 0.9998372
-## Polλ Δ2:sgRNA 2Sb-HIV-1 RT:sgRNA 2S  0.0000092
-## HIV-1 RT:sgRNA 2Sb-Polλ Δ2:sgRNA 2S  0.0608862
-## Polλ Δ2:sgRNA 2Sb-Polλ Δ2:sgRNA 2S   0.0000752
-## Polλ Δ2:sgRNA 2Sb-HIV-1 RT:sgRNA 2Sb 0.0000087</code></pre>
+##                                                         diff         lwr
+## CRISPR-λ:sgRNA_b1-CRISPR-Pol-RT:sgRNA_b1          13.3333333  -0.9569569
+## CRISPR-Pol-RT:sgRNA_b1+b2-CRISPR-Pol-RT:sgRNA_b1  -0.3333333 -14.6236236
+## CRISPR-λ:sgRNA_b1+b2-CRISPR-Pol-RT:sgRNA_b1       54.2333333  39.9430431
+## CRISPR-Pol-RT:sgRNA_b1+b2-CRISPR-λ:sgRNA_b1      -13.6666667 -27.9569569
+## CRISPR-λ:sgRNA_b1+b2-CRISPR-λ:sgRNA_b1            40.9000000  26.6097097
+## CRISPR-λ:sgRNA_b1+b2-CRISPR-Pol-RT:sgRNA_b1+b2    54.5666667  40.2763764
+##                                                         upr     p adj
+## CRISPR-λ:sgRNA_b1-CRISPR-Pol-RT:sgRNA_b1         27.6236236 0.0676604
+## CRISPR-Pol-RT:sgRNA_b1+b2-CRISPR-Pol-RT:sgRNA_b1 13.9569569 0.9998372
+## CRISPR-λ:sgRNA_b1+b2-CRISPR-Pol-RT:sgRNA_b1      68.5236236 0.0000092
+## CRISPR-Pol-RT:sgRNA_b1+b2-CRISPR-λ:sgRNA_b1       0.6236236 0.0608862
+## CRISPR-λ:sgRNA_b1+b2-CRISPR-λ:sgRNA_b1           55.1902903 0.0000752
+## CRISPR-λ:sgRNA_b1+b2-CRISPR-Pol-RT:sgRNA_b1+b2   68.8569569 0.0000087</code></pre>
 </div>
 <div id="fig.-1f" class="section level2">
 <h2>Fig. 1f</h2>
-<pre class="r"><code>fig1f &lt;- fig1f %&gt;% mutate(guide=sapply(variable, function(x) gsub(&#39;b&#39;, &#39;&#39;, x)))</code></pre>
-<pre class="r"><code>fig1f_1S_aov &lt;- aov(value ~ Tool * variable, data=fig1f %&gt;% filter(guide==&#39;sgRNA 1S&#39;))
-summary(fig1f_1S_aov)</code></pre>
+<pre class="r"><code>fig1f &lt;- fig1f %&gt;% mutate(guide=sapply(variable, function(x) gsub(&#39;\\+.2&#39;, &#39;&#39;, x)))</code></pre>
+<pre class="r"><code>fig1f_a1_aov &lt;- aov(value ~ Tool * variable, data=fig1f %&gt;% filter(guide==&#39;sgRNA_a1&#39;))
+summary(fig1f_a1_aov)</code></pre>
 <pre><code>##               Df Sum Sq Mean Sq F value   Pr(&gt;F)    
 ## Tool           3  20983    6994   71.98 7.21e-10 ***
 ## variable       1  14306   14306  147.24 8.49e-10 ***
@@ -485,131 +492,73 @@ summary(fig1f_1S_aov)</code></pre>
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 3 observations deleted due to missingness</code></pre>
-<pre class="r"><code>TukeyHSD(fig1f_1S_aov, &#39;Tool:variable&#39;)</code></pre>
+<pre class="r"><code>TukeyHSD(fig1f_a1_aov, &#39;Tool:variable&#39;)</code></pre>
 <pre><code>##   Tukey multiple comparisons of means
 ##     95% family-wise confidence level
 ## 
-## Fit: aov(formula = value ~ Tool * variable, data = fig1f %&gt;% filter(guide == &quot;sgRNA 1S&quot;))
+## Fit: aov(formula = value ~ Tool * variable, data = fig1f %&gt;% filter(guide == &quot;sgRNA_a1&quot;))
 ## 
 ## $`Tool:variable`
-##                                                                        diff
-## Polλ Δ2:sgRNA 1S-HIV-1 RT:sgRNA 1S                                14.416667
-## Polλ Δ2 R438W:sgRNA 1S-HIV-1 RT:sgRNA 1S                          19.416667
-## Polλ Δ2 R438W + MLH1dn:sgRNA 1S-HIV-1 RT:sgRNA 1S                 35.166667
-## HIV-1 RT:sgRNA 1Sb-HIV-1 RT:sgRNA 1S                              -3.333333
-## Polλ Δ2:sgRNA 1Sb-HIV-1 RT:sgRNA 1S                               46.666667
-## Polλ Δ2 R438W:sgRNA 1Sb-HIV-1 RT:sgRNA 1S                         95.333333
-## Polλ Δ2 R438W + MLH1dn:sgRNA 1Sb-HIV-1 RT:sgRNA 1S               119.166667
-## Polλ Δ2 R438W:sgRNA 1S-Polλ Δ2:sgRNA 1S                            5.000000
-## Polλ Δ2 R438W + MLH1dn:sgRNA 1S-Polλ Δ2:sgRNA 1S                  20.750000
-## HIV-1 RT:sgRNA 1Sb-Polλ Δ2:sgRNA 1S                              -17.750000
-## Polλ Δ2:sgRNA 1Sb-Polλ Δ2:sgRNA 1S                                32.250000
-## Polλ Δ2 R438W:sgRNA 1Sb-Polλ Δ2:sgRNA 1S                          80.916667
-## Polλ Δ2 R438W + MLH1dn:sgRNA 1Sb-Polλ Δ2:sgRNA 1S                104.750000
-## Polλ Δ2 R438W + MLH1dn:sgRNA 1S-Polλ Δ2 R438W:sgRNA 1S            15.750000
-## HIV-1 RT:sgRNA 1Sb-Polλ Δ2 R438W:sgRNA 1S                        -22.750000
-## Polλ Δ2:sgRNA 1Sb-Polλ Δ2 R438W:sgRNA 1S                          27.250000
-## Polλ Δ2 R438W:sgRNA 1Sb-Polλ Δ2 R438W:sgRNA 1S                    75.916667
-## Polλ Δ2 R438W + MLH1dn:sgRNA 1Sb-Polλ Δ2 R438W:sgRNA 1S           99.750000
-## HIV-1 RT:sgRNA 1Sb-Polλ Δ2 R438W + MLH1dn:sgRNA 1S               -38.500000
-## Polλ Δ2:sgRNA 1Sb-Polλ Δ2 R438W + MLH1dn:sgRNA 1S                 11.500000
-## Polλ Δ2 R438W:sgRNA 1Sb-Polλ Δ2 R438W + MLH1dn:sgRNA 1S           60.166667
-## Polλ Δ2 R438W + MLH1dn:sgRNA 1Sb-Polλ Δ2 R438W + MLH1dn:sgRNA 1S  84.000000
-## Polλ Δ2:sgRNA 1Sb-HIV-1 RT:sgRNA 1Sb                              50.000000
-## Polλ Δ2 R438W:sgRNA 1Sb-HIV-1 RT:sgRNA 1Sb                        98.666667
-## Polλ Δ2 R438W + MLH1dn:sgRNA 1Sb-HIV-1 RT:sgRNA 1Sb              122.500000
-## Polλ Δ2 R438W:sgRNA 1Sb-Polλ Δ2:sgRNA 1Sb                         48.666667
-## Polλ Δ2 R438W + MLH1dn:sgRNA 1Sb-Polλ Δ2:sgRNA 1Sb                72.500000
-## Polλ Δ2 R438W + MLH1dn:sgRNA 1Sb-Polλ Δ2 R438W:sgRNA 1Sb          23.833333
-##                                                                         lwr
-## Polλ Δ2:sgRNA 1S-HIV-1 RT:sgRNA 1S                               -11.445289
-## Polλ Δ2 R438W:sgRNA 1S-HIV-1 RT:sgRNA 1S                          -6.445289
-## Polλ Δ2 R438W + MLH1dn:sgRNA 1S-HIV-1 RT:sgRNA 1S                  7.519073
-## HIV-1 RT:sgRNA 1Sb-HIV-1 RT:sgRNA 1S                             -30.980927
-## Polλ Δ2:sgRNA 1Sb-HIV-1 RT:sgRNA 1S                               15.755718
-## Polλ Δ2 R438W:sgRNA 1Sb-HIV-1 RT:sgRNA 1S                         67.685740
-## Polλ Δ2 R438W + MLH1dn:sgRNA 1Sb-HIV-1 RT:sgRNA 1S                91.519073
-## Polλ Δ2 R438W:sgRNA 1S-Polλ Δ2:sgRNA 1S                          -18.943518
-## Polλ Δ2 R438W + MLH1dn:sgRNA 1S-Polλ Δ2:sgRNA 1S                  -5.111955
-## HIV-1 RT:sgRNA 1Sb-Polλ Δ2:sgRNA 1S                              -43.611955
-## Polλ Δ2:sgRNA 1Sb-Polλ Δ2:sgRNA 1S                                 2.925299
-## Polλ Δ2 R438W:sgRNA 1Sb-Polλ Δ2:sgRNA 1S                          55.054711
-## Polλ Δ2 R438W + MLH1dn:sgRNA 1Sb-Polλ Δ2:sgRNA 1S                 78.888045
-## Polλ Δ2 R438W + MLH1dn:sgRNA 1S-Polλ Δ2 R438W:sgRNA 1S           -10.111955
-## HIV-1 RT:sgRNA 1Sb-Polλ Δ2 R438W:sgRNA 1S                        -48.611955
-## Polλ Δ2:sgRNA 1Sb-Polλ Δ2 R438W:sgRNA 1S                          -2.074701
-## Polλ Δ2 R438W:sgRNA 1Sb-Polλ Δ2 R438W:sgRNA 1S                    50.054711
-## Polλ Δ2 R438W + MLH1dn:sgRNA 1Sb-Polλ Δ2 R438W:sgRNA 1S           73.888045
-## HIV-1 RT:sgRNA 1Sb-Polλ Δ2 R438W + MLH1dn:sgRNA 1S               -66.147593
-## Polλ Δ2:sgRNA 1Sb-Polλ Δ2 R438W + MLH1dn:sgRNA 1S                -19.410949
-## Polλ Δ2 R438W:sgRNA 1Sb-Polλ Δ2 R438W + MLH1dn:sgRNA 1S           32.519073
-## Polλ Δ2 R438W + MLH1dn:sgRNA 1Sb-Polλ Δ2 R438W + MLH1dn:sgRNA 1S  56.352407
-## Polλ Δ2:sgRNA 1Sb-HIV-1 RT:sgRNA 1Sb                              19.089051
-## Polλ Δ2 R438W:sgRNA 1Sb-HIV-1 RT:sgRNA 1Sb                        71.019073
-## Polλ Δ2 R438W + MLH1dn:sgRNA 1Sb-HIV-1 RT:sgRNA 1Sb               94.852407
-## Polλ Δ2 R438W:sgRNA 1Sb-Polλ Δ2:sgRNA 1Sb                         17.755718
-## Polλ Δ2 R438W + MLH1dn:sgRNA 1Sb-Polλ Δ2:sgRNA 1Sb                41.589051
-## Polλ Δ2 R438W + MLH1dn:sgRNA 1Sb-Polλ Δ2 R438W:sgRNA 1Sb          -3.814260
-##                                                                         upr
-## Polλ Δ2:sgRNA 1S-HIV-1 RT:sgRNA 1S                                40.278622
-## Polλ Δ2 R438W:sgRNA 1S-HIV-1 RT:sgRNA 1S                          45.278622
-## Polλ Δ2 R438W + MLH1dn:sgRNA 1S-HIV-1 RT:sgRNA 1S                 62.814260
-## HIV-1 RT:sgRNA 1Sb-HIV-1 RT:sgRNA 1S                              24.314260
-## Polλ Δ2:sgRNA 1Sb-HIV-1 RT:sgRNA 1S                               77.577616
-## Polλ Δ2 R438W:sgRNA 1Sb-HIV-1 RT:sgRNA 1S                        122.980927
-## Polλ Δ2 R438W + MLH1dn:sgRNA 1Sb-HIV-1 RT:sgRNA 1S               146.814260
-## Polλ Δ2 R438W:sgRNA 1S-Polλ Δ2:sgRNA 1S                           28.943518
-## Polλ Δ2 R438W + MLH1dn:sgRNA 1S-Polλ Δ2:sgRNA 1S                  46.611955
-## HIV-1 RT:sgRNA 1Sb-Polλ Δ2:sgRNA 1S                                8.111955
-## Polλ Δ2:sgRNA 1Sb-Polλ Δ2:sgRNA 1S                                61.574701
-## Polλ Δ2 R438W:sgRNA 1Sb-Polλ Δ2:sgRNA 1S                         106.778622
-## Polλ Δ2 R438W + MLH1dn:sgRNA 1Sb-Polλ Δ2:sgRNA 1S                130.611955
-## Polλ Δ2 R438W + MLH1dn:sgRNA 1S-Polλ Δ2 R438W:sgRNA 1S            41.611955
-## HIV-1 RT:sgRNA 1Sb-Polλ Δ2 R438W:sgRNA 1S                          3.111955
-## Polλ Δ2:sgRNA 1Sb-Polλ Δ2 R438W:sgRNA 1S                          56.574701
-## Polλ Δ2 R438W:sgRNA 1Sb-Polλ Δ2 R438W:sgRNA 1S                   101.778622
-## Polλ Δ2 R438W + MLH1dn:sgRNA 1Sb-Polλ Δ2 R438W:sgRNA 1S          125.611955
-## HIV-1 RT:sgRNA 1Sb-Polλ Δ2 R438W + MLH1dn:sgRNA 1S               -10.852407
-## Polλ Δ2:sgRNA 1Sb-Polλ Δ2 R438W + MLH1dn:sgRNA 1S                 42.410949
-## Polλ Δ2 R438W:sgRNA 1Sb-Polλ Δ2 R438W + MLH1dn:sgRNA 1S           87.814260
-## Polλ Δ2 R438W + MLH1dn:sgRNA 1Sb-Polλ Δ2 R438W + MLH1dn:sgRNA 1S 111.647593
-## Polλ Δ2:sgRNA 1Sb-HIV-1 RT:sgRNA 1Sb                              80.910949
-## Polλ Δ2 R438W:sgRNA 1Sb-HIV-1 RT:sgRNA 1Sb                       126.314260
-## Polλ Δ2 R438W + MLH1dn:sgRNA 1Sb-HIV-1 RT:sgRNA 1Sb              150.147593
-## Polλ Δ2 R438W:sgRNA 1Sb-Polλ Δ2:sgRNA 1Sb                         79.577616
-## Polλ Δ2 R438W + MLH1dn:sgRNA 1Sb-Polλ Δ2:sgRNA 1Sb               103.410949
-## Polλ Δ2 R438W + MLH1dn:sgRNA 1Sb-Polλ Δ2 R438W:sgRNA 1Sb          51.480927
-##                                                                      p adj
-## Polλ Δ2:sgRNA 1S-HIV-1 RT:sgRNA 1S                               0.5594993
-## Polλ Δ2 R438W:sgRNA 1S-HIV-1 RT:sgRNA 1S                         0.2289455
-## Polλ Δ2 R438W + MLH1dn:sgRNA 1S-HIV-1 RT:sgRNA 1S                0.0078254
-## HIV-1 RT:sgRNA 1Sb-HIV-1 RT:sgRNA 1S                             0.9998564
-## Polλ Δ2:sgRNA 1Sb-HIV-1 RT:sgRNA 1S                              0.0015122
-## Polλ Δ2 R438W:sgRNA 1Sb-HIV-1 RT:sgRNA 1S                        0.0000000
-## Polλ Δ2 R438W + MLH1dn:sgRNA 1Sb-HIV-1 RT:sgRNA 1S               0.0000000
-## Polλ Δ2 R438W:sgRNA 1S-Polλ Δ2:sgRNA 1S                          0.9951812
-## Polλ Δ2 R438W + MLH1dn:sgRNA 1S-Polλ Δ2:sgRNA 1S                 0.1714465
-## HIV-1 RT:sgRNA 1Sb-Polλ Δ2:sgRNA 1S                              0.3200686
-## Polλ Δ2:sgRNA 1Sb-Polλ Δ2:sgRNA 1S                               0.0256182
-## Polλ Δ2 R438W:sgRNA 1Sb-Polλ Δ2:sgRNA 1S                         0.0000001
-## Polλ Δ2 R438W + MLH1dn:sgRNA 1Sb-Polλ Δ2:sgRNA 1S                0.0000000
-## Polλ Δ2 R438W + MLH1dn:sgRNA 1S-Polλ Δ2 R438W:sgRNA 1S           0.4565504
-## HIV-1 RT:sgRNA 1Sb-Polλ Δ2 R438W:sgRNA 1S                        0.1079734
-## Polλ Δ2:sgRNA 1Sb-Polλ Δ2 R438W:sgRNA 1S                         0.0791147
-## Polλ Δ2 R438W:sgRNA 1Sb-Polλ Δ2 R438W:sgRNA 1S                   0.0000003
-## Polλ Δ2 R438W + MLH1dn:sgRNA 1Sb-Polλ Δ2 R438W:sgRNA 1S          0.0000000
-## HIV-1 RT:sgRNA 1Sb-Polλ Δ2 R438W + MLH1dn:sgRNA 1S               0.0033909
-## Polλ Δ2:sgRNA 1Sb-Polλ Δ2 R438W + MLH1dn:sgRNA 1S                0.8949828
-## Polλ Δ2 R438W:sgRNA 1Sb-Polλ Δ2 R438W + MLH1dn:sgRNA 1S          0.0000205
-## Polλ Δ2 R438W + MLH1dn:sgRNA 1Sb-Polλ Δ2 R438W + MLH1dn:sgRNA 1S 0.0000002
-## Polλ Δ2:sgRNA 1Sb-HIV-1 RT:sgRNA 1Sb                             0.0007262
-## Polλ Δ2 R438W:sgRNA 1Sb-HIV-1 RT:sgRNA 1Sb                       0.0000000
-## Polλ Δ2 R438W + MLH1dn:sgRNA 1Sb-HIV-1 RT:sgRNA 1Sb              0.0000000
-## Polλ Δ2 R438W:sgRNA 1Sb-Polλ Δ2:sgRNA 1Sb                        0.0009725
-## Polλ Δ2 R438W + MLH1dn:sgRNA 1Sb-Polλ Δ2:sgRNA 1Sb               0.0000076
-## Polλ Δ2 R438W + MLH1dn:sgRNA 1Sb-Polλ Δ2 R438W:sgRNA 1Sb         0.1202941</code></pre>
-<pre class="r"><code>fig1f_2S_aov &lt;- aov(value ~ Tool * variable, data=fig1f %&gt;% filter(guide==&#39;sgRNA 2S&#39;))
-summary(fig1f_2S_aov)</code></pre>
+##                                                                diff        lwr
+## CRISPR-λ:sgRNA_a1-CRISPR-Pol-RT:sgRNA_a1                  14.416667 -11.445289
+## CRISPR-λ_W:sgRNA_a1-CRISPR-Pol-RT:sgRNA_a1                19.416667  -6.445289
+## CRISPR-λ_W+MLH1dn:sgRNA_a1-CRISPR-Pol-RT:sgRNA_a1         35.166667   7.519073
+## CRISPR-Pol-RT:sgRNA_a1+a2-CRISPR-Pol-RT:sgRNA_a1          -3.333333 -30.980927
+## CRISPR-λ:sgRNA_a1+a2-CRISPR-Pol-RT:sgRNA_a1               46.666667  15.755718
+## CRISPR-λ_W:sgRNA_a1+a2-CRISPR-Pol-RT:sgRNA_a1             95.333333  67.685740
+## CRISPR-λ_W+MLH1dn:sgRNA_a1+a2-CRISPR-Pol-RT:sgRNA_a1     119.166667  91.519073
+## CRISPR-λ_W:sgRNA_a1-CRISPR-λ:sgRNA_a1                      5.000000 -18.943518
+## CRISPR-λ_W+MLH1dn:sgRNA_a1-CRISPR-λ:sgRNA_a1              20.750000  -5.111955
+## CRISPR-Pol-RT:sgRNA_a1+a2-CRISPR-λ:sgRNA_a1              -17.750000 -43.611955
+## CRISPR-λ:sgRNA_a1+a2-CRISPR-λ:sgRNA_a1                    32.250000   2.925299
+## CRISPR-λ_W:sgRNA_a1+a2-CRISPR-λ:sgRNA_a1                  80.916667  55.054711
+## CRISPR-λ_W+MLH1dn:sgRNA_a1+a2-CRISPR-λ:sgRNA_a1          104.750000  78.888045
+## CRISPR-λ_W+MLH1dn:sgRNA_a1-CRISPR-λ_W:sgRNA_a1            15.750000 -10.111955
+## CRISPR-Pol-RT:sgRNA_a1+a2-CRISPR-λ_W:sgRNA_a1            -22.750000 -48.611955
+## CRISPR-λ:sgRNA_a1+a2-CRISPR-λ_W:sgRNA_a1                  27.250000  -2.074701
+## CRISPR-λ_W:sgRNA_a1+a2-CRISPR-λ_W:sgRNA_a1                75.916667  50.054711
+## CRISPR-λ_W+MLH1dn:sgRNA_a1+a2-CRISPR-λ_W:sgRNA_a1         99.750000  73.888045
+## CRISPR-Pol-RT:sgRNA_a1+a2-CRISPR-λ_W+MLH1dn:sgRNA_a1     -38.500000 -66.147593
+## CRISPR-λ:sgRNA_a1+a2-CRISPR-λ_W+MLH1dn:sgRNA_a1           11.500000 -19.410949
+## CRISPR-λ_W:sgRNA_a1+a2-CRISPR-λ_W+MLH1dn:sgRNA_a1         60.166667  32.519073
+## CRISPR-λ_W+MLH1dn:sgRNA_a1+a2-CRISPR-λ_W+MLH1dn:sgRNA_a1  84.000000  56.352407
+## CRISPR-λ:sgRNA_a1+a2-CRISPR-Pol-RT:sgRNA_a1+a2            50.000000  19.089051
+## CRISPR-λ_W:sgRNA_a1+a2-CRISPR-Pol-RT:sgRNA_a1+a2          98.666667  71.019073
+## CRISPR-λ_W+MLH1dn:sgRNA_a1+a2-CRISPR-Pol-RT:sgRNA_a1+a2  122.500000  94.852407
+## CRISPR-λ_W:sgRNA_a1+a2-CRISPR-λ:sgRNA_a1+a2               48.666667  17.755718
+## CRISPR-λ_W+MLH1dn:sgRNA_a1+a2-CRISPR-λ:sgRNA_a1+a2        72.500000  41.589051
+## CRISPR-λ_W+MLH1dn:sgRNA_a1+a2-CRISPR-λ_W:sgRNA_a1+a2      23.833333  -3.814260
+##                                                                 upr     p adj
+## CRISPR-λ:sgRNA_a1-CRISPR-Pol-RT:sgRNA_a1                  40.278622 0.5594993
+## CRISPR-λ_W:sgRNA_a1-CRISPR-Pol-RT:sgRNA_a1                45.278622 0.2289455
+## CRISPR-λ_W+MLH1dn:sgRNA_a1-CRISPR-Pol-RT:sgRNA_a1         62.814260 0.0078254
+## CRISPR-Pol-RT:sgRNA_a1+a2-CRISPR-Pol-RT:sgRNA_a1          24.314260 0.9998564
+## CRISPR-λ:sgRNA_a1+a2-CRISPR-Pol-RT:sgRNA_a1               77.577616 0.0015122
+## CRISPR-λ_W:sgRNA_a1+a2-CRISPR-Pol-RT:sgRNA_a1            122.980927 0.0000000
+## CRISPR-λ_W+MLH1dn:sgRNA_a1+a2-CRISPR-Pol-RT:sgRNA_a1     146.814260 0.0000000
+## CRISPR-λ_W:sgRNA_a1-CRISPR-λ:sgRNA_a1                     28.943518 0.9951812
+## CRISPR-λ_W+MLH1dn:sgRNA_a1-CRISPR-λ:sgRNA_a1              46.611955 0.1714465
+## CRISPR-Pol-RT:sgRNA_a1+a2-CRISPR-λ:sgRNA_a1                8.111955 0.3200686
+## CRISPR-λ:sgRNA_a1+a2-CRISPR-λ:sgRNA_a1                    61.574701 0.0256182
+## CRISPR-λ_W:sgRNA_a1+a2-CRISPR-λ:sgRNA_a1                 106.778622 0.0000001
+## CRISPR-λ_W+MLH1dn:sgRNA_a1+a2-CRISPR-λ:sgRNA_a1          130.611955 0.0000000
+## CRISPR-λ_W+MLH1dn:sgRNA_a1-CRISPR-λ_W:sgRNA_a1            41.611955 0.4565504
+## CRISPR-Pol-RT:sgRNA_a1+a2-CRISPR-λ_W:sgRNA_a1              3.111955 0.1079734
+## CRISPR-λ:sgRNA_a1+a2-CRISPR-λ_W:sgRNA_a1                  56.574701 0.0791147
+## CRISPR-λ_W:sgRNA_a1+a2-CRISPR-λ_W:sgRNA_a1               101.778622 0.0000003
+## CRISPR-λ_W+MLH1dn:sgRNA_a1+a2-CRISPR-λ_W:sgRNA_a1        125.611955 0.0000000
+## CRISPR-Pol-RT:sgRNA_a1+a2-CRISPR-λ_W+MLH1dn:sgRNA_a1     -10.852407 0.0033909
+## CRISPR-λ:sgRNA_a1+a2-CRISPR-λ_W+MLH1dn:sgRNA_a1           42.410949 0.8949828
+## CRISPR-λ_W:sgRNA_a1+a2-CRISPR-λ_W+MLH1dn:sgRNA_a1         87.814260 0.0000205
+## CRISPR-λ_W+MLH1dn:sgRNA_a1+a2-CRISPR-λ_W+MLH1dn:sgRNA_a1 111.647593 0.0000002
+## CRISPR-λ:sgRNA_a1+a2-CRISPR-Pol-RT:sgRNA_a1+a2            80.910949 0.0007262
+## CRISPR-λ_W:sgRNA_a1+a2-CRISPR-Pol-RT:sgRNA_a1+a2         126.314260 0.0000000
+## CRISPR-λ_W+MLH1dn:sgRNA_a1+a2-CRISPR-Pol-RT:sgRNA_a1+a2  150.147593 0.0000000
+## CRISPR-λ_W:sgRNA_a1+a2-CRISPR-λ:sgRNA_a1+a2               79.577616 0.0009725
+## CRISPR-λ_W+MLH1dn:sgRNA_a1+a2-CRISPR-λ:sgRNA_a1+a2       103.410949 0.0000076
+## CRISPR-λ_W+MLH1dn:sgRNA_a1+a2-CRISPR-λ_W:sgRNA_a1+a2      51.480927 0.1202941</code></pre>
+<pre class="r"><code>fig1f_b1_aov &lt;- aov(value ~ Tool * variable, data=fig1f %&gt;% filter(guide==&#39;sgRNA_b1&#39;))
+summary(fig1f_b1_aov)</code></pre>
 <pre><code>##               Df Sum Sq Mean Sq F value   Pr(&gt;F)    
 ## Tool           3  12680    4227  107.71 8.02e-11 ***
 ## variable       1  12841   12841  327.25 4.47e-12 ***
@@ -618,129 +567,71 @@ summary(fig1f_2S_aov)</code></pre>
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 4 observations deleted due to missingness</code></pre>
-<pre class="r"><code>TukeyHSD(fig1f_2S_aov, &#39;Tool:variable&#39;)</code></pre>
+<pre class="r"><code>TukeyHSD(fig1f_b1_aov, &#39;Tool:variable&#39;)</code></pre>
 <pre><code>##   Tukey multiple comparisons of means
 ##     95% family-wise confidence level
 ## 
-## Fit: aov(formula = value ~ Tool * variable, data = fig1f %&gt;% filter(guide == &quot;sgRNA 2S&quot;))
+## Fit: aov(formula = value ~ Tool * variable, data = fig1f %&gt;% filter(guide == &quot;sgRNA_b1&quot;))
 ## 
 ## $`Tool:variable`
-##                                                                         diff
-## Polλ Δ2:sgRNA 2S-HIV-1 RT:sgRNA 2S                                13.3333333
-## Polλ Δ2 R438W:sgRNA 2S-HIV-1 RT:sgRNA 2S                          16.6666667
-## Polλ Δ2 R438W + MLH1dn:sgRNA 2S-HIV-1 RT:sgRNA 2S                 24.3333333
-## HIV-1 RT:sgRNA 2Sb-HIV-1 RT:sgRNA 2S                              -0.3333333
-## Polλ Δ2:sgRNA 2Sb-HIV-1 RT:sgRNA 2S                               54.2333333
-## Polλ Δ2 R438W:sgRNA 2Sb-HIV-1 RT:sgRNA 2S                         80.7916667
-## Polλ Δ2 R438W + MLH1dn:sgRNA 2Sb-HIV-1 RT:sgRNA 2S               111.6666667
-## Polλ Δ2 R438W:sgRNA 2S-Polλ Δ2:sgRNA 2S                            3.3333333
-## Polλ Δ2 R438W + MLH1dn:sgRNA 2S-Polλ Δ2:sgRNA 2S                  11.0000000
-## HIV-1 RT:sgRNA 2Sb-Polλ Δ2:sgRNA 2S                              -13.6666667
-## Polλ Δ2:sgRNA 2Sb-Polλ Δ2:sgRNA 2S                                40.9000000
-## Polλ Δ2 R438W:sgRNA 2Sb-Polλ Δ2:sgRNA 2S                          67.4583333
-## Polλ Δ2 R438W + MLH1dn:sgRNA 2Sb-Polλ Δ2:sgRNA 2S                 98.3333333
-## Polλ Δ2 R438W + MLH1dn:sgRNA 2S-Polλ Δ2 R438W:sgRNA 2S             7.6666667
-## HIV-1 RT:sgRNA 2Sb-Polλ Δ2 R438W:sgRNA 2S                        -17.0000000
-## Polλ Δ2:sgRNA 2Sb-Polλ Δ2 R438W:sgRNA 2S                          37.5666667
-## Polλ Δ2 R438W:sgRNA 2Sb-Polλ Δ2 R438W:sgRNA 2S                    64.1250000
-## Polλ Δ2 R438W + MLH1dn:sgRNA 2Sb-Polλ Δ2 R438W:sgRNA 2S           95.0000000
-## HIV-1 RT:sgRNA 2Sb-Polλ Δ2 R438W + MLH1dn:sgRNA 2S               -24.6666667
-## Polλ Δ2:sgRNA 2Sb-Polλ Δ2 R438W + MLH1dn:sgRNA 2S                 29.9000000
-## Polλ Δ2 R438W:sgRNA 2Sb-Polλ Δ2 R438W + MLH1dn:sgRNA 2S           56.4583333
-## Polλ Δ2 R438W + MLH1dn:sgRNA 2Sb-Polλ Δ2 R438W + MLH1dn:sgRNA 2S  87.3333333
-## Polλ Δ2:sgRNA 2Sb-HIV-1 RT:sgRNA 2Sb                              54.5666667
-## Polλ Δ2 R438W:sgRNA 2Sb-HIV-1 RT:sgRNA 2Sb                        81.1250000
-## Polλ Δ2 R438W + MLH1dn:sgRNA 2Sb-HIV-1 RT:sgRNA 2Sb              112.0000000
-## Polλ Δ2 R438W:sgRNA 2Sb-Polλ Δ2:sgRNA 2Sb                         26.5583333
-## Polλ Δ2 R438W + MLH1dn:sgRNA 2Sb-Polλ Δ2:sgRNA 2Sb                57.4333333
-## Polλ Δ2 R438W + MLH1dn:sgRNA 2Sb-Polλ Δ2 R438W:sgRNA 2Sb          30.8750000
-##                                                                         lwr
-## Polλ Δ2:sgRNA 2S-HIV-1 RT:sgRNA 2S                                -4.374112
-## Polλ Δ2 R438W:sgRNA 2S-HIV-1 RT:sgRNA 2S                          -1.040778
-## Polλ Δ2 R438W + MLH1dn:sgRNA 2S-HIV-1 RT:sgRNA 2S                  6.625888
-## HIV-1 RT:sgRNA 2Sb-HIV-1 RT:sgRNA 2S                             -18.040778
-## Polλ Δ2:sgRNA 2Sb-HIV-1 RT:sgRNA 2S                               36.525888
-## Polλ Δ2 R438W:sgRNA 2Sb-HIV-1 RT:sgRNA 2S                         64.227869
-## Polλ Δ2 R438W + MLH1dn:sgRNA 2Sb-HIV-1 RT:sgRNA 2S                91.869141
-## Polλ Δ2 R438W:sgRNA 2S-Polλ Δ2:sgRNA 2S                          -14.374112
-## Polλ Δ2 R438W + MLH1dn:sgRNA 2S-Polλ Δ2:sgRNA 2S                  -6.707445
-## HIV-1 RT:sgRNA 2Sb-Polλ Δ2:sgRNA 2S                              -31.374112
-## Polλ Δ2:sgRNA 2Sb-Polλ Δ2:sgRNA 2S                                23.192555
-## Polλ Δ2 R438W:sgRNA 2Sb-Polλ Δ2:sgRNA 2S                          50.894535
-## Polλ Δ2 R438W + MLH1dn:sgRNA 2Sb-Polλ Δ2:sgRNA 2S                 78.535808
-## Polλ Δ2 R438W + MLH1dn:sgRNA 2S-Polλ Δ2 R438W:sgRNA 2S           -10.040778
-## HIV-1 RT:sgRNA 2Sb-Polλ Δ2 R438W:sgRNA 2S                        -34.707445
-## Polλ Δ2:sgRNA 2Sb-Polλ Δ2 R438W:sgRNA 2S                          19.859222
-## Polλ Δ2 R438W:sgRNA 2Sb-Polλ Δ2 R438W:sgRNA 2S                    47.561202
-## Polλ Δ2 R438W + MLH1dn:sgRNA 2Sb-Polλ Δ2 R438W:sgRNA 2S           75.202475
-## HIV-1 RT:sgRNA 2Sb-Polλ Δ2 R438W + MLH1dn:sgRNA 2S               -42.374112
-## Polλ Δ2:sgRNA 2Sb-Polλ Δ2 R438W + MLH1dn:sgRNA 2S                 12.192555
-## Polλ Δ2 R438W:sgRNA 2Sb-Polλ Δ2 R438W + MLH1dn:sgRNA 2S           39.894535
-## Polλ Δ2 R438W + MLH1dn:sgRNA 2Sb-Polλ Δ2 R438W + MLH1dn:sgRNA 2S  67.535808
-## Polλ Δ2:sgRNA 2Sb-HIV-1 RT:sgRNA 2Sb                              36.859222
-## Polλ Δ2 R438W:sgRNA 2Sb-HIV-1 RT:sgRNA 2Sb                        64.561202
-## Polλ Δ2 R438W + MLH1dn:sgRNA 2Sb-HIV-1 RT:sgRNA 2Sb               92.202475
-## Polλ Δ2 R438W:sgRNA 2Sb-Polλ Δ2:sgRNA 2Sb                          9.994535
-## Polλ Δ2 R438W + MLH1dn:sgRNA 2Sb-Polλ Δ2:sgRNA 2Sb                37.635808
-## Polλ Δ2 R438W + MLH1dn:sgRNA 2Sb-Polλ Δ2 R438W:sgRNA 2Sb          12.093418
-##                                                                         upr
-## Polλ Δ2:sgRNA 2S-HIV-1 RT:sgRNA 2S                                31.040778
-## Polλ Δ2 R438W:sgRNA 2S-HIV-1 RT:sgRNA 2S                          34.374112
-## Polλ Δ2 R438W + MLH1dn:sgRNA 2S-HIV-1 RT:sgRNA 2S                 42.040778
-## HIV-1 RT:sgRNA 2Sb-HIV-1 RT:sgRNA 2S                              17.374112
-## Polλ Δ2:sgRNA 2Sb-HIV-1 RT:sgRNA 2S                               71.940778
-## Polλ Δ2 R438W:sgRNA 2Sb-HIV-1 RT:sgRNA 2S                         97.355465
-## Polλ Δ2 R438W + MLH1dn:sgRNA 2Sb-HIV-1 RT:sgRNA 2S               131.464192
-## Polλ Δ2 R438W:sgRNA 2S-Polλ Δ2:sgRNA 2S                           21.040778
-## Polλ Δ2 R438W + MLH1dn:sgRNA 2S-Polλ Δ2:sgRNA 2S                  28.707445
-## HIV-1 RT:sgRNA 2Sb-Polλ Δ2:sgRNA 2S                                4.040778
-## Polλ Δ2:sgRNA 2Sb-Polλ Δ2:sgRNA 2S                                58.607445
-## Polλ Δ2 R438W:sgRNA 2Sb-Polλ Δ2:sgRNA 2S                          84.022131
-## Polλ Δ2 R438W + MLH1dn:sgRNA 2Sb-Polλ Δ2:sgRNA 2S                118.130859
-## Polλ Δ2 R438W + MLH1dn:sgRNA 2S-Polλ Δ2 R438W:sgRNA 2S            25.374112
-## HIV-1 RT:sgRNA 2Sb-Polλ Δ2 R438W:sgRNA 2S                          0.707445
-## Polλ Δ2:sgRNA 2Sb-Polλ Δ2 R438W:sgRNA 2S                          55.274112
-## Polλ Δ2 R438W:sgRNA 2Sb-Polλ Δ2 R438W:sgRNA 2S                    80.688798
-## Polλ Δ2 R438W + MLH1dn:sgRNA 2Sb-Polλ Δ2 R438W:sgRNA 2S          114.797525
-## HIV-1 RT:sgRNA 2Sb-Polλ Δ2 R438W + MLH1dn:sgRNA 2S                -6.959222
-## Polλ Δ2:sgRNA 2Sb-Polλ Δ2 R438W + MLH1dn:sgRNA 2S                 47.607445
-## Polλ Δ2 R438W:sgRNA 2Sb-Polλ Δ2 R438W + MLH1dn:sgRNA 2S           73.022131
-## Polλ Δ2 R438W + MLH1dn:sgRNA 2Sb-Polλ Δ2 R438W + MLH1dn:sgRNA 2S 107.130859
-## Polλ Δ2:sgRNA 2Sb-HIV-1 RT:sgRNA 2Sb                              72.274112
-## Polλ Δ2 R438W:sgRNA 2Sb-HIV-1 RT:sgRNA 2Sb                        97.688798
-## Polλ Δ2 R438W + MLH1dn:sgRNA 2Sb-HIV-1 RT:sgRNA 2Sb              131.797525
-## Polλ Δ2 R438W:sgRNA 2Sb-Polλ Δ2:sgRNA 2Sb                         43.122131
-## Polλ Δ2 R438W + MLH1dn:sgRNA 2Sb-Polλ Δ2:sgRNA 2Sb                77.230859
-## Polλ Δ2 R438W + MLH1dn:sgRNA 2Sb-Polλ Δ2 R438W:sgRNA 2Sb          49.656582
-##                                                                      p adj
-## Polλ Δ2:sgRNA 2S-HIV-1 RT:sgRNA 2S                               0.2225364
-## Polλ Δ2 R438W:sgRNA 2S-HIV-1 RT:sgRNA 2S                         0.0728589
-## Polλ Δ2 R438W + MLH1dn:sgRNA 2S-HIV-1 RT:sgRNA 2S                0.0040885
-## HIV-1 RT:sgRNA 2Sb-HIV-1 RT:sgRNA 2S                             1.0000000
-## Polλ Δ2:sgRNA 2Sb-HIV-1 RT:sgRNA 2S                              0.0000003
-## Polλ Δ2 R438W:sgRNA 2Sb-HIV-1 RT:sgRNA 2S                        0.0000000
-## Polλ Δ2 R438W + MLH1dn:sgRNA 2Sb-HIV-1 RT:sgRNA 2S               0.0000000
-## Polλ Δ2 R438W:sgRNA 2S-Polλ Δ2:sgRNA 2S                          0.9972680
-## Polλ Δ2 R438W + MLH1dn:sgRNA 2S-Polλ Δ2:sgRNA 2S                 0.4263427
-## HIV-1 RT:sgRNA 2Sb-Polλ Δ2:sgRNA 2S                              0.2006732
-## Polλ Δ2:sgRNA 2Sb-Polλ Δ2:sgRNA 2S                               0.0000124
-## Polλ Δ2 R438W:sgRNA 2Sb-Polλ Δ2:sgRNA 2S                         0.0000000
-## Polλ Δ2 R438W + MLH1dn:sgRNA 2Sb-Polλ Δ2:sgRNA 2S                0.0000000
-## Polλ Δ2 R438W + MLH1dn:sgRNA 2S-Polλ Δ2 R438W:sgRNA 2S           0.7974920
-## HIV-1 RT:sgRNA 2Sb-Polλ Δ2 R438W:sgRNA 2S                        0.0646495
-## Polλ Δ2:sgRNA 2Sb-Polλ Δ2 R438W:sgRNA 2S                         0.0000362
-## Polλ Δ2 R438W:sgRNA 2Sb-Polλ Δ2 R438W:sgRNA 2S                   0.0000000
-## Polλ Δ2 R438W + MLH1dn:sgRNA 2Sb-Polλ Δ2 R438W:sgRNA 2S          0.0000000
-## HIV-1 RT:sgRNA 2Sb-Polλ Δ2 R438W + MLH1dn:sgRNA 2S               0.0036025
-## Polλ Δ2:sgRNA 2Sb-Polλ Δ2 R438W + MLH1dn:sgRNA 2S                0.0005139
-## Polλ Δ2 R438W:sgRNA 2Sb-Polλ Δ2 R438W + MLH1dn:sgRNA 2S          0.0000001
-## Polλ Δ2 R438W + MLH1dn:sgRNA 2Sb-Polλ Δ2 R438W + MLH1dn:sgRNA 2S 0.0000000
-## Polλ Δ2:sgRNA 2Sb-HIV-1 RT:sgRNA 2Sb                             0.0000003
-## Polλ Δ2 R438W:sgRNA 2Sb-HIV-1 RT:sgRNA 2Sb                       0.0000000
-## Polλ Δ2 R438W + MLH1dn:sgRNA 2Sb-HIV-1 RT:sgRNA 2Sb              0.0000000
-## Polλ Δ2 R438W:sgRNA 2Sb-Polλ Δ2:sgRNA 2Sb                        0.0008923
-## Polλ Δ2 R438W + MLH1dn:sgRNA 2Sb-Polλ Δ2:sgRNA 2Sb               0.0000006
-## Polλ Δ2 R438W + MLH1dn:sgRNA 2Sb-Polλ Δ2 R438W:sgRNA 2Sb         0.0006856</code></pre>
+##                                                                 diff        lwr
+## CRISPR-λ:sgRNA_b1-CRISPR-Pol-RT:sgRNA_b1                  13.3333333  -4.374112
+## CRISPR-λ_W:sgRNA_b1-CRISPR-Pol-RT:sgRNA_b1                16.6666667  -1.040778
+## CRISPR-λ_W+MLH1dn:sgRNA_b1-CRISPR-Pol-RT:sgRNA_b1         24.3333333   6.625888
+## CRISPR-Pol-RT:sgRNA_b1+b2-CRISPR-Pol-RT:sgRNA_b1          -0.3333333 -18.040778
+## CRISPR-λ:sgRNA_b1+b2-CRISPR-Pol-RT:sgRNA_b1               54.2333333  36.525888
+## CRISPR-λ_W:sgRNA_b1+b2-CRISPR-Pol-RT:sgRNA_b1             80.7916667  64.227869
+## CRISPR-λ_W+MLH1dn:sgRNA_b1+b2-CRISPR-Pol-RT:sgRNA_b1     111.6666667  91.869141
+## CRISPR-λ_W:sgRNA_b1-CRISPR-λ:sgRNA_b1                      3.3333333 -14.374112
+## CRISPR-λ_W+MLH1dn:sgRNA_b1-CRISPR-λ:sgRNA_b1              11.0000000  -6.707445
+## CRISPR-Pol-RT:sgRNA_b1+b2-CRISPR-λ:sgRNA_b1              -13.6666667 -31.374112
+## CRISPR-λ:sgRNA_b1+b2-CRISPR-λ:sgRNA_b1                    40.9000000  23.192555
+## CRISPR-λ_W:sgRNA_b1+b2-CRISPR-λ:sgRNA_b1                  67.4583333  50.894535
+## CRISPR-λ_W+MLH1dn:sgRNA_b1+b2-CRISPR-λ:sgRNA_b1           98.3333333  78.535808
+## CRISPR-λ_W+MLH1dn:sgRNA_b1-CRISPR-λ_W:sgRNA_b1             7.6666667 -10.040778
+## CRISPR-Pol-RT:sgRNA_b1+b2-CRISPR-λ_W:sgRNA_b1            -17.0000000 -34.707445
+## CRISPR-λ:sgRNA_b1+b2-CRISPR-λ_W:sgRNA_b1                  37.5666667  19.859222
+## CRISPR-λ_W:sgRNA_b1+b2-CRISPR-λ_W:sgRNA_b1                64.1250000  47.561202
+## CRISPR-λ_W+MLH1dn:sgRNA_b1+b2-CRISPR-λ_W:sgRNA_b1         95.0000000  75.202475
+## CRISPR-Pol-RT:sgRNA_b1+b2-CRISPR-λ_W+MLH1dn:sgRNA_b1     -24.6666667 -42.374112
+## CRISPR-λ:sgRNA_b1+b2-CRISPR-λ_W+MLH1dn:sgRNA_b1           29.9000000  12.192555
+## CRISPR-λ_W:sgRNA_b1+b2-CRISPR-λ_W+MLH1dn:sgRNA_b1         56.4583333  39.894535
+## CRISPR-λ_W+MLH1dn:sgRNA_b1+b2-CRISPR-λ_W+MLH1dn:sgRNA_b1  87.3333333  67.535808
+## CRISPR-λ:sgRNA_b1+b2-CRISPR-Pol-RT:sgRNA_b1+b2            54.5666667  36.859222
+## CRISPR-λ_W:sgRNA_b1+b2-CRISPR-Pol-RT:sgRNA_b1+b2          81.1250000  64.561202
+## CRISPR-λ_W+MLH1dn:sgRNA_b1+b2-CRISPR-Pol-RT:sgRNA_b1+b2  112.0000000  92.202475
+## CRISPR-λ_W:sgRNA_b1+b2-CRISPR-λ:sgRNA_b1+b2               26.5583333   9.994535
+## CRISPR-λ_W+MLH1dn:sgRNA_b1+b2-CRISPR-λ:sgRNA_b1+b2        57.4333333  37.635808
+## CRISPR-λ_W+MLH1dn:sgRNA_b1+b2-CRISPR-λ_W:sgRNA_b1+b2      30.8750000  12.093418
+##                                                                 upr     p adj
+## CRISPR-λ:sgRNA_b1-CRISPR-Pol-RT:sgRNA_b1                  31.040778 0.2225364
+## CRISPR-λ_W:sgRNA_b1-CRISPR-Pol-RT:sgRNA_b1                34.374112 0.0728589
+## CRISPR-λ_W+MLH1dn:sgRNA_b1-CRISPR-Pol-RT:sgRNA_b1         42.040778 0.0040885
+## CRISPR-Pol-RT:sgRNA_b1+b2-CRISPR-Pol-RT:sgRNA_b1          17.374112 1.0000000
+## CRISPR-λ:sgRNA_b1+b2-CRISPR-Pol-RT:sgRNA_b1               71.940778 0.0000003
+## CRISPR-λ_W:sgRNA_b1+b2-CRISPR-Pol-RT:sgRNA_b1             97.355465 0.0000000
+## CRISPR-λ_W+MLH1dn:sgRNA_b1+b2-CRISPR-Pol-RT:sgRNA_b1     131.464192 0.0000000
+## CRISPR-λ_W:sgRNA_b1-CRISPR-λ:sgRNA_b1                     21.040778 0.9972680
+## CRISPR-λ_W+MLH1dn:sgRNA_b1-CRISPR-λ:sgRNA_b1              28.707445 0.4263427
+## CRISPR-Pol-RT:sgRNA_b1+b2-CRISPR-λ:sgRNA_b1                4.040778 0.2006732
+## CRISPR-λ:sgRNA_b1+b2-CRISPR-λ:sgRNA_b1                    58.607445 0.0000124
+## CRISPR-λ_W:sgRNA_b1+b2-CRISPR-λ:sgRNA_b1                  84.022131 0.0000000
+## CRISPR-λ_W+MLH1dn:sgRNA_b1+b2-CRISPR-λ:sgRNA_b1          118.130859 0.0000000
+## CRISPR-λ_W+MLH1dn:sgRNA_b1-CRISPR-λ_W:sgRNA_b1            25.374112 0.7974920
+## CRISPR-Pol-RT:sgRNA_b1+b2-CRISPR-λ_W:sgRNA_b1              0.707445 0.0646495
+## CRISPR-λ:sgRNA_b1+b2-CRISPR-λ_W:sgRNA_b1                  55.274112 0.0000362
+## CRISPR-λ_W:sgRNA_b1+b2-CRISPR-λ_W:sgRNA_b1                80.688798 0.0000000
+## CRISPR-λ_W+MLH1dn:sgRNA_b1+b2-CRISPR-λ_W:sgRNA_b1        114.797525 0.0000000
+## CRISPR-Pol-RT:sgRNA_b1+b2-CRISPR-λ_W+MLH1dn:sgRNA_b1      -6.959222 0.0036025
+## CRISPR-λ:sgRNA_b1+b2-CRISPR-λ_W+MLH1dn:sgRNA_b1           47.607445 0.0005139
+## CRISPR-λ_W:sgRNA_b1+b2-CRISPR-λ_W+MLH1dn:sgRNA_b1         73.022131 0.0000001
+## CRISPR-λ_W+MLH1dn:sgRNA_b1+b2-CRISPR-λ_W+MLH1dn:sgRNA_b1 107.130859 0.0000000
+## CRISPR-λ:sgRNA_b1+b2-CRISPR-Pol-RT:sgRNA_b1+b2            72.274112 0.0000003
+## CRISPR-λ_W:sgRNA_b1+b2-CRISPR-Pol-RT:sgRNA_b1+b2          97.688798 0.0000000
+## CRISPR-λ_W+MLH1dn:sgRNA_b1+b2-CRISPR-Pol-RT:sgRNA_b1+b2  131.797525 0.0000000
+## CRISPR-λ_W:sgRNA_b1+b2-CRISPR-λ:sgRNA_b1+b2               43.122131 0.0008923
+## CRISPR-λ_W+MLH1dn:sgRNA_b1+b2-CRISPR-λ:sgRNA_b1+b2        77.230859 0.0000006
+## CRISPR-λ_W+MLH1dn:sgRNA_b1+b2-CRISPR-λ_W:sgRNA_b1+b2      49.656582 0.0006856</code></pre>
 </div>
 <div id="figure-2c" class="section level2">
 <h2>Figure 2c</h2>
@@ -761,68 +652,68 @@ summary(fig2b_aov)</code></pre>
 ## Fit: aov(formula = value ~ Target * guide, data = fig2b)
 ## 
 ## $`Target:guide`
-##                                                          diff         lwr
-## EGFP-IN-639:sgRNA 1 + 2-EGFP-IN-636:sgRNA 1 + 2  3.776667e+02   121.43113
-## EGFP-IN-661:sgRNA 1 + 2-EGFP-IN-636:sgRNA 1 + 2  6.636667e+02   407.43113
-## EGFP-IN-664:sgRNA 1 + 2-EGFP-IN-636:sgRNA 1 + 2  1.123000e+03   866.76446
-## EGFP-IN-636:UT-EGFP-IN-636:sgRNA 1 + 2          -1.566667e+02  -412.90220
-## EGFP-IN-639:UT-EGFP-IN-636:sgRNA 1 + 2          -1.553333e+02  -411.56887
-## EGFP-IN-661:UT-EGFP-IN-636:sgRNA 1 + 2          -1.566667e+02  -412.90220
-## EGFP-IN-664:UT-EGFP-IN-636:sgRNA 1 + 2          -1.566667e+02  -412.90220
-## EGFP-IN-661:sgRNA 1 + 2-EGFP-IN-639:sgRNA 1 + 2  2.860000e+02    29.76446
-## EGFP-IN-664:sgRNA 1 + 2-EGFP-IN-639:sgRNA 1 + 2  7.453333e+02   489.09780
-## EGFP-IN-636:UT-EGFP-IN-639:sgRNA 1 + 2          -5.343333e+02  -790.56887
-## EGFP-IN-639:UT-EGFP-IN-639:sgRNA 1 + 2          -5.330000e+02  -789.23554
-## EGFP-IN-661:UT-EGFP-IN-639:sgRNA 1 + 2          -5.343333e+02  -790.56887
-## EGFP-IN-664:UT-EGFP-IN-639:sgRNA 1 + 2          -5.343333e+02  -790.56887
-## EGFP-IN-664:sgRNA 1 + 2-EGFP-IN-661:sgRNA 1 + 2  4.593333e+02   203.09780
-## EGFP-IN-636:UT-EGFP-IN-661:sgRNA 1 + 2          -8.203333e+02 -1076.56887
-## EGFP-IN-639:UT-EGFP-IN-661:sgRNA 1 + 2          -8.190000e+02 -1075.23554
-## EGFP-IN-661:UT-EGFP-IN-661:sgRNA 1 + 2          -8.203333e+02 -1076.56887
-## EGFP-IN-664:UT-EGFP-IN-661:sgRNA 1 + 2          -8.203333e+02 -1076.56887
-## EGFP-IN-636:UT-EGFP-IN-664:sgRNA 1 + 2          -1.279667e+03 -1535.90220
-## EGFP-IN-639:UT-EGFP-IN-664:sgRNA 1 + 2          -1.278333e+03 -1534.56887
-## EGFP-IN-661:UT-EGFP-IN-664:sgRNA 1 + 2          -1.279667e+03 -1535.90220
-## EGFP-IN-664:UT-EGFP-IN-664:sgRNA 1 + 2          -1.279667e+03 -1535.90220
-## EGFP-IN-639:UT-EGFP-IN-636:UT                    1.333333e+00  -254.90220
-## EGFP-IN-661:UT-EGFP-IN-636:UT                   -1.609823e-13  -256.23554
-## EGFP-IN-664:UT-EGFP-IN-636:UT                    9.503509e-14  -256.23554
-## EGFP-IN-661:UT-EGFP-IN-639:UT                   -1.333333e+00  -257.56887
-## EGFP-IN-664:UT-EGFP-IN-639:UT                   -1.333333e+00  -257.56887
-## EGFP-IN-664:UT-EGFP-IN-661:UT                    2.560174e-13  -256.23554
-##                                                         upr     p adj
-## EGFP-IN-639:sgRNA 1 + 2-EGFP-IN-636:sgRNA 1 + 2   633.90220 0.0020968
-## EGFP-IN-661:sgRNA 1 + 2-EGFP-IN-636:sgRNA 1 + 2   919.90220 0.0000028
-## EGFP-IN-664:sgRNA 1 + 2-EGFP-IN-636:sgRNA 1 + 2  1379.23554 0.0000000
-## EGFP-IN-636:UT-EGFP-IN-636:sgRNA 1 + 2             99.56887 0.4447541
-## EGFP-IN-639:UT-EGFP-IN-636:sgRNA 1 + 2            100.90220 0.4546850
-## EGFP-IN-661:UT-EGFP-IN-636:sgRNA 1 + 2             99.56887 0.4447541
-## EGFP-IN-664:UT-EGFP-IN-636:sgRNA 1 + 2             99.56887 0.4447541
-## EGFP-IN-661:sgRNA 1 + 2-EGFP-IN-639:sgRNA 1 + 2   542.23554 0.0232516
-## EGFP-IN-664:sgRNA 1 + 2-EGFP-IN-639:sgRNA 1 + 2  1001.56887 0.0000006
-## EGFP-IN-636:UT-EGFP-IN-639:sgRNA 1 + 2           -278.09780 0.0000447
-## EGFP-IN-639:UT-EGFP-IN-639:sgRNA 1 + 2           -276.76446 0.0000461
-## EGFP-IN-661:UT-EGFP-IN-639:sgRNA 1 + 2           -278.09780 0.0000447
-## EGFP-IN-664:UT-EGFP-IN-639:sgRNA 1 + 2           -278.09780 0.0000447
-## EGFP-IN-664:sgRNA 1 + 2-EGFP-IN-661:sgRNA 1 + 2   715.56887 0.0002651
-## EGFP-IN-636:UT-EGFP-IN-661:sgRNA 1 + 2           -564.09780 0.0000001
-## EGFP-IN-639:UT-EGFP-IN-661:sgRNA 1 + 2           -562.76446 0.0000002
-## EGFP-IN-661:UT-EGFP-IN-661:sgRNA 1 + 2           -564.09780 0.0000001
-## EGFP-IN-664:UT-EGFP-IN-661:sgRNA 1 + 2           -564.09780 0.0000001
-## EGFP-IN-636:UT-EGFP-IN-664:sgRNA 1 + 2          -1023.43113 0.0000000
-## EGFP-IN-639:UT-EGFP-IN-664:sgRNA 1 + 2          -1022.09780 0.0000000
-## EGFP-IN-661:UT-EGFP-IN-664:sgRNA 1 + 2          -1023.43113 0.0000000
-## EGFP-IN-664:UT-EGFP-IN-664:sgRNA 1 + 2          -1023.43113 0.0000000
-## EGFP-IN-639:UT-EGFP-IN-636:UT                     257.56887 1.0000000
-## EGFP-IN-661:UT-EGFP-IN-636:UT                     256.23554 1.0000000
-## EGFP-IN-664:UT-EGFP-IN-636:UT                     256.23554 1.0000000
-## EGFP-IN-661:UT-EGFP-IN-639:UT                     254.90220 1.0000000
-## EGFP-IN-664:UT-EGFP-IN-639:UT                     254.90220 1.0000000
-## EGFP-IN-664:UT-EGFP-IN-661:UT                     256.23554 1.0000000</code></pre>
+##                                                        diff        lwr
+## EGFP-IN-639:CTR-EGFP-IN-636:CTR                1.333333e+00 -254.90220
+## EGFP-IN-661:CTR-EGFP-IN-636:CTR               -2.369216e-13 -256.23554
+## EGFP-IN-664:CTR-EGFP-IN-636:CTR               -5.684342e-14 -256.23554
+## EGFP-IN-636:sgRNAs_1_2-EGFP-IN-636:CTR         1.566667e+02  -99.56887
+## EGFP-IN-639:sgRNAs_1_2-EGFP-IN-636:CTR         5.343333e+02  278.09780
+## EGFP-IN-661:sgRNAs_1_2-EGFP-IN-636:CTR         8.203333e+02  564.09780
+## EGFP-IN-664:sgRNAs_1_2-EGFP-IN-636:CTR         1.279667e+03 1023.43113
+## EGFP-IN-661:CTR-EGFP-IN-639:CTR               -1.333333e+00 -257.56887
+## EGFP-IN-664:CTR-EGFP-IN-639:CTR               -1.333333e+00 -257.56887
+## EGFP-IN-636:sgRNAs_1_2-EGFP-IN-639:CTR         1.553333e+02 -100.90220
+## EGFP-IN-639:sgRNAs_1_2-EGFP-IN-639:CTR         5.330000e+02  276.76446
+## EGFP-IN-661:sgRNAs_1_2-EGFP-IN-639:CTR         8.190000e+02  562.76446
+## EGFP-IN-664:sgRNAs_1_2-EGFP-IN-639:CTR         1.278333e+03 1022.09780
+## EGFP-IN-664:CTR-EGFP-IN-661:CTR                1.800782e-13 -256.23554
+## EGFP-IN-636:sgRNAs_1_2-EGFP-IN-661:CTR         1.566667e+02  -99.56887
+## EGFP-IN-639:sgRNAs_1_2-EGFP-IN-661:CTR         5.343333e+02  278.09780
+## EGFP-IN-661:sgRNAs_1_2-EGFP-IN-661:CTR         8.203333e+02  564.09780
+## EGFP-IN-664:sgRNAs_1_2-EGFP-IN-661:CTR         1.279667e+03 1023.43113
+## EGFP-IN-636:sgRNAs_1_2-EGFP-IN-664:CTR         1.566667e+02  -99.56887
+## EGFP-IN-639:sgRNAs_1_2-EGFP-IN-664:CTR         5.343333e+02  278.09780
+## EGFP-IN-661:sgRNAs_1_2-EGFP-IN-664:CTR         8.203333e+02  564.09780
+## EGFP-IN-664:sgRNAs_1_2-EGFP-IN-664:CTR         1.279667e+03 1023.43113
+## EGFP-IN-639:sgRNAs_1_2-EGFP-IN-636:sgRNAs_1_2  3.776667e+02  121.43113
+## EGFP-IN-661:sgRNAs_1_2-EGFP-IN-636:sgRNAs_1_2  6.636667e+02  407.43113
+## EGFP-IN-664:sgRNAs_1_2-EGFP-IN-636:sgRNAs_1_2  1.123000e+03  866.76446
+## EGFP-IN-661:sgRNAs_1_2-EGFP-IN-639:sgRNAs_1_2  2.860000e+02   29.76446
+## EGFP-IN-664:sgRNAs_1_2-EGFP-IN-639:sgRNAs_1_2  7.453333e+02  489.09780
+## EGFP-IN-664:sgRNAs_1_2-EGFP-IN-661:sgRNAs_1_2  4.593333e+02  203.09780
+##                                                     upr     p adj
+## EGFP-IN-639:CTR-EGFP-IN-636:CTR                257.5689 1.0000000
+## EGFP-IN-661:CTR-EGFP-IN-636:CTR                256.2355 1.0000000
+## EGFP-IN-664:CTR-EGFP-IN-636:CTR                256.2355 1.0000000
+## EGFP-IN-636:sgRNAs_1_2-EGFP-IN-636:CTR         412.9022 0.4447541
+## EGFP-IN-639:sgRNAs_1_2-EGFP-IN-636:CTR         790.5689 0.0000447
+## EGFP-IN-661:sgRNAs_1_2-EGFP-IN-636:CTR        1076.5689 0.0000001
+## EGFP-IN-664:sgRNAs_1_2-EGFP-IN-636:CTR        1535.9022 0.0000000
+## EGFP-IN-661:CTR-EGFP-IN-639:CTR                254.9022 1.0000000
+## EGFP-IN-664:CTR-EGFP-IN-639:CTR                254.9022 1.0000000
+## EGFP-IN-636:sgRNAs_1_2-EGFP-IN-639:CTR         411.5689 0.4546850
+## EGFP-IN-639:sgRNAs_1_2-EGFP-IN-639:CTR         789.2355 0.0000461
+## EGFP-IN-661:sgRNAs_1_2-EGFP-IN-639:CTR        1075.2355 0.0000002
+## EGFP-IN-664:sgRNAs_1_2-EGFP-IN-639:CTR        1534.5689 0.0000000
+## EGFP-IN-664:CTR-EGFP-IN-661:CTR                256.2355 1.0000000
+## EGFP-IN-636:sgRNAs_1_2-EGFP-IN-661:CTR         412.9022 0.4447541
+## EGFP-IN-639:sgRNAs_1_2-EGFP-IN-661:CTR         790.5689 0.0000447
+## EGFP-IN-661:sgRNAs_1_2-EGFP-IN-661:CTR        1076.5689 0.0000001
+## EGFP-IN-664:sgRNAs_1_2-EGFP-IN-661:CTR        1535.9022 0.0000000
+## EGFP-IN-636:sgRNAs_1_2-EGFP-IN-664:CTR         412.9022 0.4447541
+## EGFP-IN-639:sgRNAs_1_2-EGFP-IN-664:CTR         790.5689 0.0000447
+## EGFP-IN-661:sgRNAs_1_2-EGFP-IN-664:CTR        1076.5689 0.0000001
+## EGFP-IN-664:sgRNAs_1_2-EGFP-IN-664:CTR        1535.9022 0.0000000
+## EGFP-IN-639:sgRNAs_1_2-EGFP-IN-636:sgRNAs_1_2  633.9022 0.0020968
+## EGFP-IN-661:sgRNAs_1_2-EGFP-IN-636:sgRNAs_1_2  919.9022 0.0000028
+## EGFP-IN-664:sgRNAs_1_2-EGFP-IN-636:sgRNAs_1_2 1379.2355 0.0000000
+## EGFP-IN-661:sgRNAs_1_2-EGFP-IN-639:sgRNAs_1_2  542.2355 0.0232516
+## EGFP-IN-664:sgRNAs_1_2-EGFP-IN-639:sgRNAs_1_2 1001.5689 0.0000006
+## EGFP-IN-664:sgRNAs_1_2-EGFP-IN-661:sgRNAs_1_2  715.5689 0.0002651</code></pre>
 </div>
 <div id="figure-2f" class="section level2">
 <h2>Figure 2f</h2>
-<pre class="r"><code>fig2e_1 &lt;- fig2e %&gt;% filter(Guide == &#39;1&#39;)
+<pre class="r"><code>fig2e_1 &lt;- fig2e %&gt;% filter(Guide == &#39;a1&#39;)
 t_res &lt;- t.test(AF ~ Sample, data=fig2e_1)
 p_1 &lt;- t_res$p.value
 t_res</code></pre>
@@ -830,14 +721,14 @@ t_res</code></pre>
 ##  Welch Two Sample t-test
 ## 
 ## data:  AF by Sample
-## t = 3.7265, df = 30.99, p-value = 0.0007766
-## alternative hypothesis: true difference in means between group GFP-1_S2 and group GFP-EMPTY_S1 is not equal to 0
+## t = -3.7265, df = 30.99, p-value = 0.0007766
+## alternative hypothesis: true difference in means between group EGFP_NT_sgRNA and group EGFP_sgRNA_a1 is not equal to 0
 ## 95 percent confidence interval:
-##  7.109392e-06 2.430013e-05
+##  -2.430013e-05 -7.109392e-06
 ## sample estimates:
-##     mean in group GFP-1_S2 mean in group GFP-EMPTY_S1 
-##               2.431849e-05               8.613722e-06</code></pre>
-<pre class="r"><code>fig2e_1B &lt;- fig2e %&gt;% filter(Guide == &#39;1+B&#39;)
+## mean in group EGFP_NT_sgRNA mean in group EGFP_sgRNA_a1 
+##                8.613722e-06                2.431849e-05</code></pre>
+<pre class="r"><code>fig2e_1B &lt;- fig2e %&gt;% filter(Guide == &#39;a1+a2&#39;)
 t_res &lt;- t.test(AF ~ Sample, data=fig2e_1B)
 p_1B &lt;- t_res$p.value
 t_res</code></pre>
@@ -845,19 +736,19 @@ t_res</code></pre>
 ##  Welch Two Sample t-test
 ## 
 ## data:  AF by Sample
-## t = 9.3154, df = 40.061, p-value = 1.412e-11
-## alternative hypothesis: true difference in means between group GFP-1-B_S3 and group GFP-EMPTY_S1 is not equal to 0
+## t = -9.3154, df = 40.061, p-value = 1.412e-11
+## alternative hypothesis: true difference in means between group EGFP_NT_sgRNA and group EGFP_sgRNA_a1+a2 is not equal to 0
 ## 95 percent confidence interval:
-##  3.196004e-05 4.966964e-05
+##  -4.966964e-05 -3.196004e-05
 ## sample estimates:
-##   mean in group GFP-1-B_S3 mean in group GFP-EMPTY_S1 
-##               4.911127e-05               8.296423e-06</code></pre>
+##    mean in group EGFP_NT_sgRNA mean in group EGFP_sgRNA_a1+a2 
+##                   8.296423e-06                   4.911127e-05</code></pre>
 <pre class="r"><code>p.adjust(c(p_1, p_1B), method=&#39;bonferroni&#39;)</code></pre>
 <pre><code>## [1] 1.553278e-03 2.823799e-11</code></pre>
 </div>
 <div id="supplementary-figure-3b" class="section level2">
 <h2>Supplementary Figure 3b</h2>
-<pre class="r"><code>figS3b_1 &lt;- figS3b %&gt;% filter(Guide == &#39;1&#39;)
+<pre class="r"><code>figS3b_1 &lt;- figS3b %&gt;% filter(Guide == &#39;a1&#39;)
 t_res &lt;- t.test(AF ~ Sample, data=figS3b_1)
 p_1 &lt;- t_res$p.value
 t_res</code></pre>
@@ -865,14 +756,14 @@ t_res</code></pre>
 ##  Welch Two Sample t-test
 ## 
 ## data:  AF by Sample
-## t = -0.022846, df = 47.965, p-value = 0.9819
-## alternative hypothesis: true difference in means between group GFP-1_S2 and group GFP-EMPTY_S1 is not equal to 0
+## t = 0.022846, df = 47.965, p-value = 0.9819
+## alternative hypothesis: true difference in means between group EGFP_NT_sgRNA and group EGFP_sgRNA_a1 is not equal to 0
 ## 95 percent confidence interval:
-##  -0.0008047192  0.0007866375
+##  -0.0007866375  0.0008047192
 ## sample estimates:
-##     mean in group GFP-1_S2 mean in group GFP-EMPTY_S1 
-##               0.0009376973               0.0009467381</code></pre>
-<pre class="r"><code>figS3b_1B &lt;- figS3b  %&gt;% filter(Guide == &#39;1+B&#39;)
+## mean in group EGFP_NT_sgRNA mean in group EGFP_sgRNA_a1 
+##                0.0009467381                0.0009376973</code></pre>
+<pre class="r"><code>figS3b_1B &lt;- figS3b  %&gt;% filter(Guide == &#39;a1+a2&#39;)
 t_res &lt;- t.test(AF ~ Sample, data=figS3b_1B)
 p_1B &lt;- t_res$p.value
 t_res</code></pre>
@@ -880,13 +771,13 @@ t_res</code></pre>
 ##  Welch Two Sample t-test
 ## 
 ## data:  AF by Sample
-## t = -0.061143, df = 69.104, p-value = 0.9514
-## alternative hypothesis: true difference in means between group GFP-1-B_S3 and group GFP-EMPTY_S1 is not equal to 0
+## t = 0.061143, df = 69.104, p-value = 0.9514
+## alternative hypothesis: true difference in means between group EGFP_NT_sgRNA and group EGFP_sgRNA_a1+a2 is not equal to 0
 ## 95 percent confidence interval:
-##  -0.0005631025  0.0005296112
+##  -0.0005296112  0.0005631025
 ## sample estimates:
-##   mean in group GFP-1-B_S3 mean in group GFP-EMPTY_S1 
-##               0.0007017368               0.0007184824</code></pre>
+##    mean in group EGFP_NT_sgRNA mean in group EGFP_sgRNA_a1+a2 
+##                   0.0007184824                   0.0007017368</code></pre>
 <pre class="r"><code>p.adjust(c(p_1, p_1B), method=&#39;bonferroni&#39;)</code></pre>
 <pre><code>## [1] 1 1</code></pre>
 </div>
@@ -906,20 +797,34 @@ summary(fig4d_aov)</code></pre>
 ## Fit: aov(formula = AF ~ Sample, data = fig4d)
 ## 
 ## $Sample
-##                                                diff           lwr           upr
-## SPIKE-EVO-EMPTY_S11-SPIKE-EVO-1-B_S12 -1.309362e-04 -1.578801e-04 -1.039922e-04
-## SPIKE-RT-1-B_S10-SPIKE-EVO-1-B_S12    -1.310410e-04 -1.579849e-04 -1.040971e-04
-## SPIKE-RT-EMPTY_S9-SPIKE-EVO-1-B_S12   -1.290033e-04 -1.559472e-04 -1.020593e-04
-## SPIKE-RT-1-B_S10-SPIKE-EVO-EMPTY_S11  -1.048262e-07 -2.704875e-05  2.683910e-05
-## SPIKE-RT-EMPTY_S9-SPIKE-EVO-EMPTY_S11  1.932904e-06 -2.501102e-05  2.887683e-05
-## SPIKE-RT-EMPTY_S9-SPIKE-RT-1-B_S10     2.037730e-06 -2.490620e-05  2.898166e-05
-##                                           p adj
-## SPIKE-EVO-EMPTY_S11-SPIKE-EVO-1-B_S12 0.0000000
-## SPIKE-RT-1-B_S10-SPIKE-EVO-1-B_S12    0.0000000
-## SPIKE-RT-EMPTY_S9-SPIKE-EVO-1-B_S12   0.0000000
-## SPIKE-RT-1-B_S10-SPIKE-EVO-EMPTY_S11  0.9999996
-## SPIKE-RT-EMPTY_S9-SPIKE-EVO-EMPTY_S11 0.9977084
-## SPIKE-RT-EMPTY_S9-SPIKE-RT-1-B_S10    0.9973189</code></pre>
+##                                                                               diff
+## SPIKE_CRISPR-Pol-Lambda_sgRNA_c1+c2-SPIKE_CRISPR-Pol-Lambda_NT_sgRNA  1.309362e-04
+## SPIKE_CRISPR-Pol-RT_NT_sgRNA-SPIKE_CRISPR-Pol-Lambda_NT_sgRNA         1.932904e-06
+## SPIKE_CRISPR-Pol-RT_sgRNA_c1+c2-SPIKE_CRISPR-Pol-Lambda_NT_sgRNA     -1.048262e-07
+## SPIKE_CRISPR-Pol-RT_NT_sgRNA-SPIKE_CRISPR-Pol-Lambda_sgRNA_c1+c2     -1.290033e-04
+## SPIKE_CRISPR-Pol-RT_sgRNA_c1+c2-SPIKE_CRISPR-Pol-Lambda_sgRNA_c1+c2  -1.310410e-04
+## SPIKE_CRISPR-Pol-RT_sgRNA_c1+c2-SPIKE_CRISPR-Pol-RT_NT_sgRNA         -2.037730e-06
+##                                                                                lwr
+## SPIKE_CRISPR-Pol-Lambda_sgRNA_c1+c2-SPIKE_CRISPR-Pol-Lambda_NT_sgRNA  1.039922e-04
+## SPIKE_CRISPR-Pol-RT_NT_sgRNA-SPIKE_CRISPR-Pol-Lambda_NT_sgRNA        -2.501102e-05
+## SPIKE_CRISPR-Pol-RT_sgRNA_c1+c2-SPIKE_CRISPR-Pol-Lambda_NT_sgRNA     -2.704875e-05
+## SPIKE_CRISPR-Pol-RT_NT_sgRNA-SPIKE_CRISPR-Pol-Lambda_sgRNA_c1+c2     -1.559472e-04
+## SPIKE_CRISPR-Pol-RT_sgRNA_c1+c2-SPIKE_CRISPR-Pol-Lambda_sgRNA_c1+c2  -1.579849e-04
+## SPIKE_CRISPR-Pol-RT_sgRNA_c1+c2-SPIKE_CRISPR-Pol-RT_NT_sgRNA         -2.898166e-05
+##                                                                                upr
+## SPIKE_CRISPR-Pol-Lambda_sgRNA_c1+c2-SPIKE_CRISPR-Pol-Lambda_NT_sgRNA  1.578801e-04
+## SPIKE_CRISPR-Pol-RT_NT_sgRNA-SPIKE_CRISPR-Pol-Lambda_NT_sgRNA         2.887683e-05
+## SPIKE_CRISPR-Pol-RT_sgRNA_c1+c2-SPIKE_CRISPR-Pol-Lambda_NT_sgRNA      2.683910e-05
+## SPIKE_CRISPR-Pol-RT_NT_sgRNA-SPIKE_CRISPR-Pol-Lambda_sgRNA_c1+c2     -1.020593e-04
+## SPIKE_CRISPR-Pol-RT_sgRNA_c1+c2-SPIKE_CRISPR-Pol-Lambda_sgRNA_c1+c2  -1.040971e-04
+## SPIKE_CRISPR-Pol-RT_sgRNA_c1+c2-SPIKE_CRISPR-Pol-RT_NT_sgRNA          2.490620e-05
+##                                                                          p adj
+## SPIKE_CRISPR-Pol-Lambda_sgRNA_c1+c2-SPIKE_CRISPR-Pol-Lambda_NT_sgRNA 0.0000000
+## SPIKE_CRISPR-Pol-RT_NT_sgRNA-SPIKE_CRISPR-Pol-Lambda_NT_sgRNA        0.9977084
+## SPIKE_CRISPR-Pol-RT_sgRNA_c1+c2-SPIKE_CRISPR-Pol-Lambda_NT_sgRNA     0.9999996
+## SPIKE_CRISPR-Pol-RT_NT_sgRNA-SPIKE_CRISPR-Pol-Lambda_sgRNA_c1+c2     0.0000000
+## SPIKE_CRISPR-Pol-RT_sgRNA_c1+c2-SPIKE_CRISPR-Pol-Lambda_sgRNA_c1+c2  0.0000000
+## SPIKE_CRISPR-Pol-RT_sgRNA_c1+c2-SPIKE_CRISPR-Pol-RT_NT_sgRNA         0.9973189</code></pre>
 </div>
 <div id="supplementary-figure-7b" class="section level2">
 <h2>Supplementary Figure 7b</h2>
@@ -937,20 +842,34 @@ summary(figS6b_aov)</code></pre>
 ## Fit: aov(formula = AF ~ Sample, data = figS6b)
 ## 
 ## $Sample
-##                                                diff           lwr           upr
-## SPIKE-EVO-EMPTY_S11-SPIKE-EVO-1-B_S12 -1.911161e-04 -2.875086e-04 -9.472360e-05
-## SPIKE-RT-1-B_S10-SPIKE-EVO-1-B_S12    -1.771532e-04 -2.735457e-04 -8.076070e-05
-## SPIKE-RT-EMPTY_S9-SPIKE-EVO-1-B_S12   -1.298437e-04 -2.262362e-04 -3.345123e-05
-## SPIKE-RT-1-B_S10-SPIKE-EVO-EMPTY_S11   1.396289e-05 -8.242962e-05  1.103554e-04
-## SPIKE-RT-EMPTY_S9-SPIKE-EVO-EMPTY_S11  6.127237e-05 -3.512014e-05  1.576649e-04
-## SPIKE-RT-EMPTY_S9-SPIKE-RT-1-B_S10     4.730947e-05 -4.908304e-05  1.437020e-04
-##                                           p adj
-## SPIKE-EVO-EMPTY_S11-SPIKE-EVO-1-B_S12 0.0000042
-## SPIKE-RT-1-B_S10-SPIKE-EVO-1-B_S12    0.0000228
-## SPIKE-RT-EMPTY_S9-SPIKE-EVO-1-B_S12   0.0033390
-## SPIKE-RT-1-B_S10-SPIKE-EVO-EMPTY_S11  0.9818787
-## SPIKE-RT-EMPTY_S9-SPIKE-EVO-EMPTY_S11 0.3543112
-## SPIKE-RT-EMPTY_S9-SPIKE-RT-1-B_S10    0.5814654</code></pre>
+##                                                                               diff
+## SPIKE_CRISPR-Pol-Lambda_sgRNA_c1+c2-SPIKE_CRISPR-Pol-Lambda_NT_sgRNA  1.911161e-04
+## SPIKE_CRISPR-Pol-RT_NT_sgRNA-SPIKE_CRISPR-Pol-Lambda_NT_sgRNA         6.127237e-05
+## SPIKE_CRISPR-Pol-RT_sgRNA_c1+c2-SPIKE_CRISPR-Pol-Lambda_NT_sgRNA      1.396289e-05
+## SPIKE_CRISPR-Pol-RT_NT_sgRNA-SPIKE_CRISPR-Pol-Lambda_sgRNA_c1+c2     -1.298437e-04
+## SPIKE_CRISPR-Pol-RT_sgRNA_c1+c2-SPIKE_CRISPR-Pol-Lambda_sgRNA_c1+c2  -1.771532e-04
+## SPIKE_CRISPR-Pol-RT_sgRNA_c1+c2-SPIKE_CRISPR-Pol-RT_NT_sgRNA         -4.730947e-05
+##                                                                                lwr
+## SPIKE_CRISPR-Pol-Lambda_sgRNA_c1+c2-SPIKE_CRISPR-Pol-Lambda_NT_sgRNA  9.472360e-05
+## SPIKE_CRISPR-Pol-RT_NT_sgRNA-SPIKE_CRISPR-Pol-Lambda_NT_sgRNA        -3.512014e-05
+## SPIKE_CRISPR-Pol-RT_sgRNA_c1+c2-SPIKE_CRISPR-Pol-Lambda_NT_sgRNA     -8.242962e-05
+## SPIKE_CRISPR-Pol-RT_NT_sgRNA-SPIKE_CRISPR-Pol-Lambda_sgRNA_c1+c2     -2.262362e-04
+## SPIKE_CRISPR-Pol-RT_sgRNA_c1+c2-SPIKE_CRISPR-Pol-Lambda_sgRNA_c1+c2  -2.735457e-04
+## SPIKE_CRISPR-Pol-RT_sgRNA_c1+c2-SPIKE_CRISPR-Pol-RT_NT_sgRNA         -1.437020e-04
+##                                                                                upr
+## SPIKE_CRISPR-Pol-Lambda_sgRNA_c1+c2-SPIKE_CRISPR-Pol-Lambda_NT_sgRNA  2.875086e-04
+## SPIKE_CRISPR-Pol-RT_NT_sgRNA-SPIKE_CRISPR-Pol-Lambda_NT_sgRNA         1.576649e-04
+## SPIKE_CRISPR-Pol-RT_sgRNA_c1+c2-SPIKE_CRISPR-Pol-Lambda_NT_sgRNA      1.103554e-04
+## SPIKE_CRISPR-Pol-RT_NT_sgRNA-SPIKE_CRISPR-Pol-Lambda_sgRNA_c1+c2     -3.345123e-05
+## SPIKE_CRISPR-Pol-RT_sgRNA_c1+c2-SPIKE_CRISPR-Pol-Lambda_sgRNA_c1+c2  -8.076070e-05
+## SPIKE_CRISPR-Pol-RT_sgRNA_c1+c2-SPIKE_CRISPR-Pol-RT_NT_sgRNA          4.908304e-05
+##                                                                          p adj
+## SPIKE_CRISPR-Pol-Lambda_sgRNA_c1+c2-SPIKE_CRISPR-Pol-Lambda_NT_sgRNA 0.0000042
+## SPIKE_CRISPR-Pol-RT_NT_sgRNA-SPIKE_CRISPR-Pol-Lambda_NT_sgRNA        0.3543112
+## SPIKE_CRISPR-Pol-RT_sgRNA_c1+c2-SPIKE_CRISPR-Pol-Lambda_NT_sgRNA     0.9818787
+## SPIKE_CRISPR-Pol-RT_NT_sgRNA-SPIKE_CRISPR-Pol-Lambda_sgRNA_c1+c2     0.0033390
+## SPIKE_CRISPR-Pol-RT_sgRNA_c1+c2-SPIKE_CRISPR-Pol-Lambda_sgRNA_c1+c2  0.0000228
+## SPIKE_CRISPR-Pol-RT_sgRNA_c1+c2-SPIKE_CRISPR-Pol-RT_NT_sgRNA         0.5814654</code></pre>
 </div>
 </div>
 

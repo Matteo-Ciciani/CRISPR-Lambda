@@ -1,21 +1,21 @@
 ,Tool,variable,value
-0,HIV-1 RT,sgRNA 1S,9.0
-1,HIV-1 RT,sgRNA 1S,1.0
-2,HIV-1 RT,sgRNA 1S,0.0
-3,Polλ Δ2,sgRNA 1S,12.0
-4,Polλ Δ2,sgRNA 1S,19.5
-5,Polλ Δ2,sgRNA 1S,28.0
-6,Polλ Δ2,sgRNA 1S,11.5
-7,Optimized PolI3M,sgRNA 1S,0.0
-8,Optimized PolI3M,sgRNA 1S,0.0
-9,Optimized PolI3M,sgRNA 1S,0.0
-10,HIV-1 RT,sgRNA 2S,0.0
-11,HIV-1 RT,sgRNA 2S,1.0
-12,HIV-1 RT,sgRNA 2S,0.0
-13,Polλ Δ2,sgRNA 2S,20.0
-14,Polλ Δ2,sgRNA 2S,7.0
-15,Polλ Δ2,sgRNA 2S,14.0
-16,Polλ Δ2,sgRNA 2S,
-17,Optimized PolI3M,sgRNA 2S,0.0
-18,Optimized PolI3M,sgRNA 2S,0.0
-19,Optimized PolI3M,sgRNA 2S,0.0
+0,CRISPR-Pol-RT,sgRNA_a1,9
+1,CRISPR-Pol-RT,sgRNA_a1,1
+2,CRISPR-Pol-RT,sgRNA_a1,0
+3,CRISPR-λ,sgRNA_a1,12
+4,CRISPR-λ,sgRNA_a1,19.5
+5,CRISPR-λ,sgRNA_a1,28
+6,CRISPR-λ,sgRNA_a1,11.5
+7,CRISPR-Pol-Ecoli,sgRNA_a1,0
+8,CRISPR-Pol-Ecoli,sgRNA_a1,0
+9,CRISPR-Pol-Ecoli,sgRNA_a1,0
+10,CRISPR-Pol-RT,sgRNA_b1,0
+11,CRISPR-Pol-RT,sgRNA_b1,1
+12,CRISPR-Pol-RT,sgRNA_b1,0
+13,CRISPR-λ,sgRNA_b1,20
+14,CRISPR-λ,sgRNA_b1,7
+15,CRISPR-λ,sgRNA_b1,14
+16,CRISPR-λ,sgRNA_b1,
+17,CRISPR-Pol-Ecoli,sgRNA_b1,0
+18,CRISPR-Pol-Ecoli,sgRNA_b1,0
+19,CRISPR-Pol-Ecoli,sgRNA_b1,0
